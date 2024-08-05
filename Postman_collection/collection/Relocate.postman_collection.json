@@ -252,104 +252,6 @@
 					"response": []
 				},
 				{
-					"name": "Login check",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Token is exist\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.token).is.exist;",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "jwt",
-							"jwt": [
-								{
-									"key": "addTokenTo",
-									"value": "header",
-									"type": "string"
-								},
-								{
-									"key": "algorithm",
-									"value": "HS256",
-									"type": "string"
-								},
-								{
-									"key": "isSecretBase64Encoded",
-									"value": false,
-									"type": "boolean"
-								},
-								{
-									"key": "payload",
-									"value": "{}",
-									"type": "string"
-								},
-								{
-									"key": "headerPrefix",
-									"value": "Bearer",
-									"type": "string"
-								},
-								{
-									"key": "queryParamKey",
-									"value": "token",
-									"type": "string"
-								},
-								{
-									"key": "header",
-									"value": "{}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/v1/auth/login",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Sign-up with existing creds",
 					"event": [
 						{
@@ -774,7 +676,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Тестирование метода для регистрации пользователя через электронную почту."
 		}
 	],
 	"event": [
