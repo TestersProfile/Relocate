@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3304a114-bb7b-482c-8d62-a0ad96449fe2",
+		"_postman_id": "21badb4c-b0f8-4ea1-beb1-a141f5b70e3b",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27502884"
@@ -20,7 +20,8 @@
 									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -35,14 +36,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/blog",
+							"raw": "{{host}}/api/v1/b",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"blog"
+								"b"
 							]
 						}
 					},
