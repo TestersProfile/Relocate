@@ -1,3 +1,3 @@
 # Relocate
 
-Коллекция POSTMAN для тестирования АПИ проекта RELOCATE
+Коллекция POSTMAN для тестирования API проекта RELOCATE
