@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "21badb4c-b0f8-4ea1-beb1-a141f5b70e3b",
+		"_postman_id": "9c14d1b0-7af3-4986-add0-4ac40192cbf5",
 		"name": "Relocate",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "27502884"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20685134"
 	},
 	"item": [
 		{
@@ -35,17 +35,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{host}}/api/v1/b",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"b"
-							]
-						}
+						"url": "{{host}}/api/v1/b"
 					},
 					"response": []
 				},
@@ -54,18 +44,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/blog/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"blog",
-								"1"
-							]
-						}
+						"url": "{{host}}/api/v1/blog/1"
 					},
 					"response": []
 				},
@@ -74,18 +53,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/blog/page",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"blog",
-								"page"
-							]
-						}
+						"url": "{{host}}/api/v1/blog/page"
 					},
 					"response": []
 				},
@@ -103,19 +71,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{host}}/api/v1/blog/1/comment",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"blog",
-								"1",
-								"comment"
-							]
-						}
+						"url": "{{host}}/api/v1/blog/1/comment"
 					},
 					"response": []
 				}
@@ -129,17 +85,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/country",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"country"
-							]
-						}
+						"url": "{{host}}/api/v1/country"
 					},
 					"response": []
 				},
@@ -148,18 +94,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/country/ger",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"country",
-								"ger"
-							]
-						}
+						"url": "{{host}}/api/v1/country/ger"
 					},
 					"response": []
 				},
@@ -168,18 +103,7 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/country/compare",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"country",
-								"compare"
-							]
-						}
+						"url": "{{host}}/api/v1/country/compare"
 					},
 					"response": []
 				}
@@ -229,18 +153,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/auth/sign-up",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"auth",
-										"sign-up"
-									]
-								}
+								"url": "{{base_url}}/api/v1/auth/sign-up"
 							},
 							"response": []
 						},
@@ -283,18 +196,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/auth/sign-up",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"auth",
-										"sign-up"
-									]
-								}
+								"url": "{{base_url}}/api/v1/auth/sign-up"
 							},
 							"response": []
 						},
@@ -336,18 +238,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/auth/sign-up",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"auth",
-										"sign-up"
-									]
-								}
+								"url": "{{base_url}}/api/v1/auth/sign-up"
 							},
 							"response": []
 						},
@@ -389,18 +280,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/auth/sign-up",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"auth",
-										"sign-up"
-									]
-								}
+								"url": "{{base_url}}/api/v1/auth/sign-up"
 							},
 							"response": []
 						}
@@ -450,18 +330,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -503,18 +372,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -556,18 +414,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -609,18 +456,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -662,18 +498,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -715,18 +540,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -768,18 +582,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -821,18 +624,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -874,18 +666,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								}
@@ -932,18 +713,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -985,18 +755,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								},
@@ -1038,18 +797,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{base_url}}/api/v1/auth/sign-up",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"v1",
-												"auth",
-												"sign-up"
-											]
-										}
+										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								}
@@ -1095,18 +843,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/v1/auth/sign-up",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"sign-up"
-							]
-						}
+						"url": "{{base_url}}/api/v1/auth/sign-up"
 					},
 					"response": []
 				},
@@ -1148,23 +885,1766 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/v1/auth/sign-up",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"sign-up"
-							]
-						}
+						"url": "{{base_url}}/api/v1/auth/sign-up"
 					},
 					"response": []
 				}
 			],
 			"description": "Тестирование метода для регистрации пользователя через электронную почту.\n\nТребования:\n\n1. Тело - json\n    \n2. email/password должен быть string\n    \n3. email/password не должен быть пустым\n    \n4. Допустимый адрес электронной почты\n    \n5. Пароль должен содержать не менее 8 символов\n    \n6. Пароль должен содержать не более 20 символов\n    \n7. Пароль не должен содержать пробел\n    \n8. Пароль должен содержать хотя бы одну цифру\n    \n9. Пароль должен содержать хотя бы одну строчную букву\n    \n10. Пароль должен содержать хотя бы одну заглавную букву\n    \n11. Пароль не содержит недопустимый символ (КАКОЙ???)\n    \n12. Регистрация не успешная если пользователь с таким email уже существует"
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Change password",
+					"item": [
+						{
+							"name": "Positive",
+							"item": [
+								{
+									"name": "Log In and get access token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is correct\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status code name has correct string\", function () {\r",
+													"    pm.response.to.have.status(\"No Content\");\r",
+													"});\r",
+													"\r",
+													"const cookies = pm.response.headers.filter(header => header.key === \"Set-Cookie\");\r",
+													"\r",
+													"pm.test(\"fetch access_token\", ()=>{\r",
+													"    var access_token = pm.cookies.get('access_token');\r",
+													"    pm.collectionVariables.set(\"access_token\", access_token);\r",
+													"})\r",
+													"\r",
+													"pm.test(\"fetch refresh_token\", ()=>{\r",
+													"    var refresh_token = pm.cookies.get('refresh_token');\r",
+													"    pm.collectionVariables.set(\"refresh_token\", refresh_token);\r",
+													"})\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"email\":  \"{{UserEmail}}\",\r\n  \"password\": \"{{CurrentPassword}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/api/v1/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Change password",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Получаем токены из переменных коллекции\r",
+													"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+													"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+													"\r",
+													"// Устанавливаем заголовок Cookie с токенами\r",
+													"pm.request.headers.add({\r",
+													"    key: \"Cookie\",\r",
+													"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is JSON\", function () {\r",
+													"    pm.response.json();\r",
+													"});\r",
+													"pm.test(\"Status code 200 is correct\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Status code name has correct string\", function () {\r",
+													"    pm.response.to.have.status(\"OK\");\r",
+													"});\r",
+													"pm.test(\"Response message is valid\", function() {\r",
+													"    pm.expect(pm.response.json().message).to.eql(\"Пароль изменен\")\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"currentPassword\": \"{{CurrentPassword}}\",\r\n   \"newPassword\": \"{{NewPassword}}\" \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{base_url}}/api/v1/user/change-password"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Negative",
+							"item": [
+								{
+									"name": "UnAuthorizedUser",
+									"item": [
+										{
+											"name": "Positive_LogOut",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": "{{base_url}}/api/v1/auth/logout"
+											},
+											"response": []
+										},
+										{
+											"name": "Change password by unauthorized user",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 401 is correct\", function () {\r",
+															"    pm.response.to.have.status(401);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Unauthorized\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Access токен не найден\")\r",
+															"})\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n   \"currentPassword\": \"Oldstring1\",\r\n   \"newPassword\": \"Test12345\" \r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "ExpiredToken",
+									"item": [
+										{
+											"name": "Log In and get access token",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"// Извлечение тех response Headers, где key: Set-Cookie\r",
+															"const cookies = pm.response.headers.filter(header => header.key === \"Set-Cookie\");\r",
+															"\r",
+															"// Инициализация переменной для хранения устаревших куки\r",
+															"let expiredCookies = [];\r",
+															"\r",
+															"// Установка даты истечения в прошлом (например, 1 января 2023 года). Можно использовать просто строковое значение:\r",
+															"//  const expiredDate = 'Sun, 01 Jan 2023 00:00:00 GMT';\r",
+															"const expiredDate = new Date('2023-01-01T00:00:00Z').toUTCString();\r",
+															"\r",
+															"// Перебор заголовков cookie \r",
+															"cookies.forEach(cookie => {\r",
+															"const cookieValue = cookie.value;\r",
+															"\r",
+															"// Проверяем, содержит ли cookie access_token или refresh_token\r",
+															"// Устанавливаем expires в 2023 год\r",
+															"    const expiredCookie = cookieValue.replace(/expires=[^;]*/, `expires=${expiredDate}`);\r",
+															"\r",
+															"    // Добавляем устаревшие куки в массив\r",
+															"    expiredCookies.push(expiredCookie);\r",
+															"    if (cookieValue.includes(\"access_token\")) {\r",
+															"        // Извлекаем access_token\r",
+															"        accessToken = cookieValue.split(';')[0].split('=')[1]; // Берём только значение\r",
+															"    } else if (cookieValue.includes(\"refresh_token\")) {\r",
+															"        // Извлекаем refresh_token\r",
+															"        refreshToken = cookieValue.split(';')[0].split('=')[1]; // Берём только значение\r",
+															"    }\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"email\": \"first_test_user@gmail.com\",\r\n  \"password\": \"Testing123\"\r\n//   \"password\": \"Test12345\"\r\n}\r\n",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{URL}}/api/v1/auth/login"
+											},
+											"response": []
+										},
+										{
+											"name": "change password with expired token",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 401 is correct\", function () {\r",
+															"    pm.response.to.have.status(401);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Unauthorized\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Expired JWT Token\")\r",
+															"})\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Получаем токены из переменных коллекции\r",
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"// Получаем устаревшие куки из переменной коллекции\r",
+															"const expiredCookies = pm.collectionVariables.get(\"expiredCookies\");\r",
+															"\r",
+															"// Устанавливаем заголовок Cookie с устаревшими токенами\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: expiredCookies\r",
+															"});\r",
+															"\r",
+															"// Логирование для проверки\r",
+															"console.log(\"Используем устаревшие куки:\", expiredCookies);\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n   \"currentPassword\": \"Testing123sss\",\r\n   \"newPassword\": \"Test12345\" \r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "IncorrectPassword",
+									"item": [
+										{
+											"name": "NewPassword is equal to currentPassword",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 409 is correct\", function () {\r",
+															"    pm.response.to.have.status(409);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Conflict\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль совпадает с текущим\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{NewPassword}}\",   \"newPassword\": \"{{NewPassword}}\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "Body. Using invalid key-value format.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Невалидный json в теле запроса\")\r",
+															"})\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   null,   \"newPassword\": \"Testing123\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "Body. Input empty JSON.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"newPassword не должен быть пустым\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "  { } ",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "Body. Input not JSON.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Невалидный json в теле запроса\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "\"currentPassword\": \"Oldstring1\",\r\n\"newPassword\": \"Newstring1\"\r\n",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Using invalid data format.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"newPassword должен быть string\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": 1  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Input NULL as a value",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"newPassword должен быть string\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": null  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Empty field as a value",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"newPassword не должен быть пустым\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": \"\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Length less than 8 characters.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль должен содержать не менее 8 символов\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": \"Test1\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Length more than 20 characters.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль должен содержать не более 20 символов\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",\r\n    \"newPassword\": \"Testing123Testing123Testing123\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Using whitespace.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль не должен содержать пробел\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": \"Testing 123\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Without digits",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль должен содержать хотя бы одну цифру\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": \"Testinggg\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Just digits.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль должен содержать хотя бы одну строчную букву\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": \"12345678\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Upper case letters and digits only.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль должен содержать хотя бы одну строчную букву\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": \"TESTING123\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "New password. Lower case letters and digits only.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль должен содержать хотя бы одну заглавную букву\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"{{CurrentPassword}}\",   \"newPassword\": \"testing123\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "NewPassword. Input SQL injection.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль должен содержать не более 20 символов\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"Testing123\",   \"newPassword\": \"'; SELECT * FROM users LIMIT 5\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "NewPassword. Input masked SQL injection.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль не должен содержать пробел\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"Testing123\",   \"newPassword\": \"\\u0027\\u0027 OR \\u0031\\u003d\\u0031 LIMIT \\u0031 --\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "NewPassword. Input XXS injection.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Новый пароль должен содержать не более 20 символов\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"Testing123\",   \"newPassword\": \"<script>alert('XSS')</script>\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "Current password. Using invalid data format.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"currentPassword должен быть string\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": 1,   \"newPassword\": \"Newstring1\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "CurrentPassword. Input incorrect currentPassword.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 409 is correct\", function () {\r",
+															"    pm.response.to.have.status(409);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Conflict\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Неверный пароль\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"Testing1\",   \"newPassword\": \"Testing123\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "CurrentPassword. Input SQL injection.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 409 is correct\", function () {\r",
+															"    pm.response.to.have.status(409);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Conflict\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Неверный пароль\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"'or 1=1 --\",   \"newPassword\": \"Test12345\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "CurrentPassword. Input masked SQL injection.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 409 is correct\", function () {\r",
+															"    pm.response.to.have.status(409);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Conflict\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Неверный пароль\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"\\u0027\\u0027 OR \\u0031\\u003d\\u0031 LIMIT \\u0031 --\",   \"newPassword\": \"Test12345\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "CurrentPassword. Input XXS injection.",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 409 is correct\", function () {\r",
+															"    pm.response.to.have.status(409);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Conflict\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"Неверный пароль\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": \"<script>alert('XSS')</script>\",   \"newPassword\": \"Test12345\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										},
+										{
+											"name": "CurrentPassword. Input NULL as a value",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is JSON\", function () {\r",
+															"    pm.response.json();\r",
+															"});\r",
+															"pm.test(\"Status code 400 is correct\", function () {\r",
+															"    pm.response.to.have.status(400);\r",
+															"});\r",
+															"pm.test(\"Status code name has correct string\", function () {\r",
+															"    pm.response.to.have.status(\"Bad Request\");\r",
+															"});\r",
+															"pm.test(\"Response message is valid\", function() {\r",
+															"    pm.expect(pm.response.json().message).to.eql(\"newPassword должен быть string\")\r",
+															"})"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+															"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+															"\r",
+															"pm.request.headers.add({\r",
+															"    key: \"Cookie\",\r",
+															"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{   \"currentPassword\": null,   \"newPassword\": \"Newstring1\"  }",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": "{{base_url}}/api/v1/user/change-password"
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Positive. Back change password.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code 200 is correct\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Response message is valid\", function() {\r",
+											"    pm.expect(pm.response.json().message).to.eql(\"Пароль изменен\")\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Получаем токены из переменных коллекции\r",
+											"const accessToken = pm.collectionVariables.get(\"access_token\");\r",
+											"const refreshToken = pm.collectionVariables.get(\"refresh_token\");\r",
+											"\r",
+											"// Устанавливаем заголовок Cookie с токенами\r",
+											"pm.request.headers.add({\r",
+											"    key: \"Cookie\",\r",
+											"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"currentPassword\": \"Test12345\",\r\n   \"newPassword\": \"Testing123\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{URL}}/api/v1/user/change-password"
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"const email = 'first_test_user@gmail.com';\r",
+									"const CurrentPassword = 'Testing123';\r",
+									"const NewPassword = 'Test12345'\r",
+									"\r",
+									"pm.variables.set(\"UserEmail\", email);\r",
+									"pm.variables.set(\"CurrentPassword\", CurrentPassword);\r",
+									"pm.variables.set(\"NewPassword\", NewPassword);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"// // Выполнение запроса POST для смены пароля\r",
+									"// pm.sendRequest({\r",
+									"//     url: '{{base_url}}/api/v1/user/change-password',\r",
+									"//     method: 'POST',\r",
+									"//     header: {\r",
+									"//         'Content-Type': 'application/json',\r",
+									"//         'Cookie': `access_token=${pm.collectionVariables.get(\"access_token\")}; refresh_token=${pm.collectionVariables.get(\"refresh_token\")}`\r",
+									"//     },\r",
+									"//     body: {\r",
+									"//         mode: 'raw',\r",
+									"//         raw: JSON.stringify({\r",
+									"//             \"currentPassword\": pm.collectionVariables.get(\"NewPassword\"),\r",
+									"//             \"newPassword\": pm.collectionVariables.get(\"CurrentPassword\")\r",
+									"//         })\r",
+									"//     }\r",
+									"// }, (err, res) => {\r",
+									"//     if (err) {\r",
+									"//         console.error('Error during change-password request:', err);\r",
+									"//         return;\r",
+									"//     }\r",
+									"//     if (res.code === 204) {\r",
+									"//         console.log('Password changed successfully.');\r",
+									"//     } else {\r",
+									"//         console.warn('Failed to change password:', res.code, res.status, res.json());\r",
+									"//     }\r",
+									"// })"
+								]
+							}
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [
@@ -1192,6 +2672,18 @@
 			"key": "host",
 			"value": "http://134.17.16.177",
 			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "null"
+		},
+		{
+			"key": "refresh_token",
+			"value": "null"
+		},
+		{
+			"key": "expired_cookies",
+			"value": "null"
 		}
 	]
 }
