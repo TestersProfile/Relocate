@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "9c14d1b0-7af3-4986-add0-4ac40192cbf5",
+		"_postman_id": "976ae83a-2ec1-4319-82f7-5d27861c8e52",
 		"name": "Relocate",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "20685134"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36636605"
 	},
 	"item": [
 		{
@@ -35,7 +35,17 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": "{{host}}/api/v1/b"
+						"url": {
+							"raw": "{{host}}/api/v1/b",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"b"
+							]
+						}
 					},
 					"response": []
 				},
@@ -44,7 +54,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{host}}/api/v1/blog/1"
+						"url": {
+							"raw": "{{host}}/api/v1/blog/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -53,7 +74,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{host}}/api/v1/blog/page"
+						"url": {
+							"raw": "{{host}}/api/v1/blog/page",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"page"
+							]
+						}
 					},
 					"response": []
 				},
@@ -71,7 +103,19 @@
 								}
 							}
 						},
-						"url": "{{host}}/api/v1/blog/1/comment"
+						"url": {
+							"raw": "{{host}}/api/v1/blog/1/comment",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"1",
+								"comment"
+							]
+						}
 					},
 					"response": []
 				}
@@ -85,7 +129,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{host}}/api/v1/country"
+						"url": {
+							"raw": "{{host}}/api/v1/country",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"country"
+							]
+						}
 					},
 					"response": []
 				},
@@ -94,7 +148,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{host}}/api/v1/country/ger"
+						"url": {
+							"raw": "{{host}}/api/v1/country/ger",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"country",
+								"ger"
+							]
+						}
 					},
 					"response": []
 				},
@@ -103,37 +168,64 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "{{host}}/api/v1/country/compare"
+						"url": {
+							"raw": "{{host}}/api/v1/country/compare",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"country",
+								"compare"
+							]
+						}
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "Sign-up",
+			"name": "Auth-login",
 			"item": [
 				{
 					"name": "Positive",
 					"item": [
 						{
-							"name": "Sign-up positive smoke",
+							"name": "Login of a registered user with correct 'email’, ‘password’",
 							"event": [
 								{
-									"listen": "test",
+									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 204\", function () {",
-											"    pm.response.to.have.status(204);",
-											"});"
+											"const cookies = pm.cookies;",
+											"const accessToken = cookies.get('access_token');",
+											"pm.globals.set('access_token', accessToken);",
+											"const refreshToken = cookies.get('refresh_token');",
+											"pm.globals.set('refresh_token', refreshToken);"
 										],
 										"type": "text/javascript",
 										"packages": {}
 									}
 								},
 								{
-									"listen": "prerequest",
+									"listen": "test",
 									"script": {
 										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"No Content\");",
+											"});",
+											"pm.test(\"fetch access_token\", ()=>{",
+											"    var access_token = pm.cookies.get('access_token');",
+											"    pm.collectionVariables.set(\"access_token\", access_token);",
+											"})",
+											"pm.test(\"fetch refresh_token\", ()=>{",
+											"    var refresh_token = pm.cookies.get('refresh_token');",
+											"    pm.collectionVariables.set(\"refresh_token\", refresh_token);",
+											"})",
 											""
 										],
 										"type": "text/javascript",
@@ -142,145 +234,101 @@
 								}
 							],
 							"request": {
+								"auth": {
+									"type": "basic"
+								},
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": \"test111@mail.com\", // valid new email\n    \"password\": \"1aA1aA1aA\" // valid password\n}",
+									"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{base_url}}/api/v1/auth/sign-up"
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
 							},
 							"response": []
 						},
 						{
-							"name": "Sign-up with existing email",
+							"name": "Login of unregistered user with valid ‘email’, ‘password’",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 409\", function () {",
-											"    pm.response.to.have.status(409);",
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData. message).to.eql(\"Неверный пароль или e-mail\");",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Unauthorized\");",
 											"});",
 											""
 										],
 										"type": "text/javascript",
 										"packages": {}
 									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
 								}
 							],
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": \"test111@mail.com\", // ранее созданный пользователь\n    \"password\": \"1aA1aA1aA1aA\" // valid password\n}",
+									"raw": "{\n  \"email\": \"k0ndrateva861216354@yandex.ru\",\n  \"password\": \"Lagavo32#@\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
 										}
 									}
 								},
-								"url": "{{base_url}}/api/v1/auth/sign-up"
-							},
-							"response": []
-						},
-						{
-							"name": "Sign-up positive password 8 chars",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", function () {",
-											"    pm.response.to.have.status(204);",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
 								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\": \"{{$randomEmail}}\", // valid new email\n    \"password\": \"1aA1aA1a\" // valid password\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{base_url}}/api/v1/auth/sign-up"
-							},
-							"response": []
-						},
-						{
-							"name": "Sign-up positive password 20 chars",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", function () {",
-											"    pm.response.to.have.status(204);",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\": \"{{$randomEmail}}\", // valid new email\n    \"password\": \"1aA1aA1aA1aA1aA1aA1a\" // valid password\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{base_url}}/api/v1/auth/sign-up"
 							},
 							"response": []
 						}
@@ -290,10 +338,10 @@
 					"name": "Negative",
 					"item": [
 						{
-							"name": "Negative Password",
+							"name": "Negative email",
 							"item": [
 								{
-									"name": "Sign-up negative empty password",
+									"name": "Login with missing key ‘email’",
 									"event": [
 										{
 											"listen": "test",
@@ -301,17 +349,14 @@
 												"exec": [
 													"pm.test(\"Status code is 400\", function () {",
 													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"email не должен быть пустым\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Bad Request\");",
 													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -320,22 +365,42 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"\"\n}",
+											"raw": "{\n \n  \"password\": \"Lagavo33\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "Sign-up negative password is a number",
+									"name": "Login with missing value ‘email’",
 									"event": [
 										{
 											"listen": "test",
@@ -343,17 +408,14 @@
 												"exec": [
 													"pm.test(\"Status code is 400\", function () {",
 													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"text message verification \", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Bad Request\");",
 													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -362,22 +424,42 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": 123123123\n}",
+											"raw": "{\n  \"email\":,\n  \"password\": \"Lagavo33\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "Sign-up negative short password (7 characters)",
+									"name": "Login with null value of the ‘email’ key",
 									"event": [
 										{
 											"listen": "test",
@@ -385,17 +467,14 @@
 												"exec": [
 													"pm.test(\"Status code is 400\", function () {",
 													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"email должен быть string\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Bad Request\");",
 													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -404,40 +483,57 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\": \"test324234@test.ru\",\n    \"password\": \"1aA1aA1\"\n}",
+											"raw": "{\n  \"email\": null,\n  \"password\": \"Lagavo33\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "Sign-up negative long password (21 charachters)",
+									"name": "Login with ‘ email’ key value SQL injection",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 400\", function () {",
-													"    pm.response.to.have.status(400);",
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Неверный пароль или e-mail\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Unauthorized\");",
 													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -446,40 +542,57 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"1aA1aA1aA1aA1aA1aA1aA\"\n}",
+											"raw": "{\n  \"email\": \"SELECT * FROM users Limit 3;-- \",\n  \"password\": \"{{password}}\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "Sign-up negative password with space",
+									"name": "Login with ‘ email’ key value XSS injection",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 400\", function () {",
-													"    pm.response.to.have.status(400);",
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Неверный пароль или e-mail\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Unauthorized\");",
 													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -488,195 +601,47 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"1aA 1aA1aA\"\n}",
+											"raw": "{\n  \"email\": \"<script>alert('XSS')</script>\",\n  \"password\": \"{{password}}\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
-									},
-									"response": []
-								},
-								{
-									"name": "Sign-up negative password without Up chars",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 400\", function () {",
-													"    pm.response.to.have.status(400);",
-													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
 										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"1aa1aa1aa\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
-									},
-									"response": []
-								},
-								{
-									"name": "Sign-up negative password without low chars",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 400\", function () {",
-													"    pm.response.to.have.status(400);",
-													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"1AA1AA1AA1AA\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
-									},
-									"response": []
-								},
-								{
-									"name": "Sign-up negative password without digits",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 400\", function () {",
-													"    pm.response.to.have.status(400);",
-													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"ABCabcABC\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
-									},
-									"response": []
-								},
-								{
-									"name": "Sign-up negative password doesn't exists",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 400\", function () {",
-													"    pm.response.to.have.status(400);",
-													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\": \"test@test.ru\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
 									},
 									"response": []
 								}
 							]
 						},
 						{
-							"name": "Negative Email",
+							"name": "Negative password",
 							"item": [
 								{
-									"name": "Sign-up negative invalid email",
+									"name": "Login with missing ‘password’ key",
 									"event": [
 										{
 											"listen": "test",
@@ -684,17 +649,14 @@
 												"exec": [
 													"pm.test(\"Status code is 400\", function () {",
 													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"password не должен быть пустым\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Bad Request\");",
 													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -703,40 +665,54 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\": \"test@test\",\n    \"password\": \"1aA1aA1aA\"\n}",
+											"raw": "{\n  \"email\": \"k0ndrateva861216@yandex.ru\"\n\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "Sign-up negative invalid email is empty",
+									"name": "Login with missing ‘password’ key value",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 400\", function () {",
+													"pm.test(\"Status code is 200\", function () {",
 													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
 													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -745,22 +721,42 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\": \"\",\n    \"password\": \"1aA1aA1aA\"\n}",
+											"raw": "{\n  \"email\": \"k0ndrateva861216@yandex.ru\",\n  \"password\": \n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "Sign-up negative email doesn't exists",
+									"name": "Login with the value null of the ‘password’ key",
 									"event": [
 										{
 											"listen": "test",
@@ -768,17 +764,14 @@
 												"exec": [
 													"pm.test(\"Status code is 400\", function () {",
 													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"password должен быть string\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Bad Request\");",
 													"});"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -787,110 +780,1004 @@
 									],
 									"request": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"password\": \"1aA1aA1aA\"\n}",
+											"raw": "{\n  \"email\": \"k0ndrateva861216@yandex.ru\",\n  \"password\": null\n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/sign-up"
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login with ‘ password’ key value SQL injection",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Неверный пароль или e-mail\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Unauthorized\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"SELECT * FROM users LIMIT 3;-- \"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login with ‘ password’ key value XSS injection",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"    pm.response.to.have.status(401);",
+													"});",
+													"pm.test(\"text message verification\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Неверный пароль или e-mail\");",
+													"});",
+													"pm.test(\"Status code name has string\", function () {",
+													"    pm.response.to.have.status(\"Unauthorized\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "*/*"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"<script>alert('XSS')</script>\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
 									},
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "Login of a registered user with wrong ‘email’ and correct ‘password’",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Неверный пароль или e-mail\");",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Unauthorized\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"k0ndrateva86121635544@yandex.ru\",\n  \"password\": \"{{password}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login of a registered user with a valid ‘email’ and an invalid ‘password’",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Неверный пароль или e-mail\");",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Unauthorized\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"Lagavo32#@\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with empty json in the request body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"test message verification\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"email не должен быть пустым\");",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login with request body with non-json",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"text message verification\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n  \"email\": \"k0ndrateva861216@yandex.ru\",\n  \"password\": \"Lagavo33\"\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Reset-password",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Password reset request with correct ‘email’ of the registered user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.value).to.eql(\"Ссылка для сброса пароля отправлена на Ваш email\");",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{email}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Password reset request with correct ‘email’ of the registered user more than 2 times",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 429\", function () {",
+											"    pm.response.to.have.status(429);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Too Many Requests\");",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Слишком много запросов для сброса пароля. Повторите попытку через 10 минут\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{email}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
 				{
-					"name": "Sign-up negative empty JSON",
-					"event": [
+					"name": "Negative",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 400\", function () {",
-									"    pm.response.to.have.status(400);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "Password reset request with invalid ‘email’ (without@)registered user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Недопустимый адрес электронной почты\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
 								}
-							}
-						},
-						"url": "{{base_url}}/api/v1/auth/sign-up"
-					},
-					"response": []
-				},
-				{
-					"name": "Sign-up negative body is not a JSON",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 400\", function () {",
-									"    pm.response.to.have.status(400);",
-									"});"
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
 								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "    \"email\": \"test@test.ru\",\n    \"password\": \">Y}9D]:YIx{H.:5&FRb6\"",
-							"options": {
-								"raw": {
-									"language": "json"
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"k0ndrateva861216yandex.ru\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": "{{base_url}}/api/v1/auth/sign-up"
-					},
-					"response": []
+						{
+							"name": "Request to reset password from ‘email’ of unregistered user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Conflict\");",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Пользователь с таким email не существует\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"k0ndrateva8613!216@yandex.ru\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request to reset password with missing ‘email’ value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Request to reset password key ‘email’ with boolean value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"email должен быть string\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Password reset request in the request body empty json",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Your test name\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"email не должен быть пустым\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Password reset request in the request body not json",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n  \"email\": \"k0ndrateva861216@yandex.ru\"\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Password reset request with SQL injection value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Недопустимый адрес электронной почты\");",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"';SELECT * FROM users LIMIT 3;-- \"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Password reset request with XSS injection value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Request has message\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Недопустимый адрес электронной почты\");",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"<script>alert('XSS')</script>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
-			],
-			"description": "Тестирование метода для регистрации пользователя через электронную почту.\n\nТребования:\n\n1. Тело - json\n    \n2. email/password должен быть string\n    \n3. email/password не должен быть пустым\n    \n4. Допустимый адрес электронной почты\n    \n5. Пароль должен содержать не менее 8 символов\n    \n6. Пароль должен содержать не более 20 символов\n    \n7. Пароль не должен содержать пробел\n    \n8. Пароль должен содержать хотя бы одну цифру\n    \n9. Пароль должен содержать хотя бы одну строчную букву\n    \n10. Пароль должен содержать хотя бы одну заглавную букву\n    \n11. Пароль не содержит недопустимый символ (КАКОЙ???)\n    \n12. Регистрация не успешная если пользователь с таким email уже существует"
+			]
 		},
 		{
 			"name": "User",
@@ -947,7 +1834,18 @@
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/auth/login"
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/login",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
 									},
 									"response": []
 								},
@@ -1009,7 +1907,18 @@
 												}
 											}
 										},
-										"url": "{{base_url}}/api/v1/user/change-password"
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/change-password",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"change-password"
+											]
+										}
 									},
 									"response": []
 								}
@@ -1026,7 +1935,18 @@
 											"request": {
 												"method": "POST",
 												"header": [],
-												"url": "{{base_url}}/api/v1/auth/logout"
+												"url": {
+													"raw": "{{base_url}}/api/v1/auth/logout",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"auth",
+														"logout"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1078,7 +1998,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										}
@@ -1141,7 +2072,18 @@
 														}
 													}
 												},
-												"url": "{{URL}}/api/v1/auth/login"
+												"url": {
+													"raw": "{{URL}}/api/v1/auth/login",
+													"host": [
+														"{{URL}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"auth",
+														"login"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1208,7 +2150,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										}
@@ -1270,7 +2223,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1328,7 +2292,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1385,7 +2360,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1442,7 +2428,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1499,7 +2496,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1556,7 +2564,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1613,7 +2632,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1670,7 +2700,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1727,7 +2768,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1784,7 +2836,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1841,7 +2904,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1898,7 +2972,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -1955,7 +3040,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2012,7 +3108,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2069,7 +3176,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2126,7 +3244,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2183,7 +3312,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2240,7 +3380,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2297,7 +3448,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2354,7 +3516,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2411,7 +3584,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2468,7 +3652,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										},
@@ -2525,7 +3720,18 @@
 														}
 													}
 												},
-												"url": "{{base_url}}/api/v1/user/change-password"
+												"url": {
+													"raw": "{{base_url}}/api/v1/user/change-password",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"user",
+														"change-password"
+													]
+												}
 											},
 											"response": []
 										}
@@ -2585,7 +3791,18 @@
 										}
 									}
 								},
-								"url": "{{URL}}/api/v1/user/change-password"
+								"url": {
+									"raw": "{{URL}}/api/v1/user/change-password",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"change-password"
+									]
+								}
 							},
 							"response": []
 						}
@@ -2645,45 +3862,997 @@
 					]
 				}
 			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
 		},
 		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
+			"name": "Sign-up",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Sign-up positive smoke",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"test111@mail.com\", // valid new email\n    \"password\": \"1aA1aA1aA\" // valid password\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/sign-up",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign-up with existing email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409\", function () {",
+											"    pm.response.to.have.status(409);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"test111@mail.com\", // ранее созданный пользователь\n    \"password\": \"1aA1aA1aA1aA\" // valid password\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/sign-up",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign-up positive password 8 chars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{$randomEmail}}\", // valid new email\n    \"password\": \"1aA1aA1a\" // valid password\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/sign-up",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign-up positive password 20 chars",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{$randomEmail}}\", // valid new email\n    \"password\": \"1aA1aA1aA1aA1aA1aA1a\" // valid password\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/sign-up",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Negative Password",
+							"item": [
+								{
+									"name": "Sign-up negative empty password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative password is a number",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": 123123123\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative short password (7 characters)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"test324234@test.ru\",\n    \"password\": \"1aA1aA1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative long password (21 charachters)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"1aA1aA1aA1aA1aA1aA1aA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative password with space",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"1aA 1aA1aA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative password without Up chars",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"1aa1aa1aa\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative password without low chars",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"1AA1AA1AA1AA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative password without digits",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"test123123@test.ru\",\n    \"password\": \"ABCabcABC\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative password doesn't exists",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"test@test.ru\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Negative Email",
+							"item": [
+								{
+									"name": "Sign-up negative invalid email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"test@test\",\n    \"password\": \"1aA1aA1aA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative invalid email is empty",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"\",\n    \"password\": \"1aA1aA1aA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sign-up negative email doesn't exists",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"password\": \"1aA1aA1aA\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/auth/sign-up",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"sign-up"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Sign-up negative body is not a JSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    \"email\": \"test@test.ru\",\n    \"password\": \">Y}9D]:YIx{H.:5&FRb6\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/sign-up",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign-up negative empty JSON",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/sign-up",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Тестирование метода для регистрации пользователя через электронную почту.\n\nТребования:\n\n1. Тело - json\n    \n2. email/password должен быть string\n    \n3. email/password не должен быть пустым\n    \n4. Допустимый адрес электронной почты\n    \n5. Пароль должен содержать не менее 8 символов\n    \n6. Пароль должен содержать не более 20 символов\n    \n7. Пароль не должен содержать пробел\n    \n8. Пароль должен содержать хотя бы одну цифру\n    \n9. Пароль должен содержать хотя бы одну строчную букву\n    \n10. Пароль должен содержать хотя бы одну заглавную букву\n    \n11. Пароль не содержит недопустимый символ (КАКОЙ???)\n    \n12. Регистрация не успешная если пользователь с таким email уже существует"
 		}
 	],
 	"variable": [
 		{
-			"key": "host",
-			"value": "http://134.17.16.177",
-			"type": "string"
-		},
-		{
 			"key": "access_token",
-			"value": "null"
+			"value": ""
 		},
 		{
 			"key": "refresh_token",
-			"value": "null"
-		},
-		{
-			"key": "expired_cookies",
-			"value": "null"
+			"value": ""
 		}
 	]
 }
