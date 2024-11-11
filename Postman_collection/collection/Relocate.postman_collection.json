@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6b9021a0-fa41-4ba3-b5f7-f4621f288ab5",
+		"_postman_id": "c4e35048-40f1-4453-a85c-861c6ec0bcc7",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26631222"
+		"_exporter_id": "5251561"
 	},
 	"item": [
 		{
@@ -2010,6 +2010,2276 @@
 				}
 			],
 			"description": "Тестирование метода для регистрации пользователя через электронную почту.\n\nТребования:\n\n1. Тело - json\n    \n2. email/password должен быть string\n    \n3. email/password не должен быть пустым\n    \n4. Допустимый адрес электронной почты\n    \n5. Пароль должен содержать не менее 8 символов\n    \n6. Пароль должен содержать не более 20 символов\n    \n7. Пароль не должен содержать пробел\n    \n8. Пароль должен содержать хотя бы одну цифру\n    \n9. Пароль должен содержать хотя бы одну строчную букву\n    \n10. Пароль должен содержать хотя бы одну заглавную букву\n    \n11. Пароль не содержит недопустимый символ (КАКОЙ???)\n    \n12. Регистрация не успешная если пользователь с таким email уже существует"
+		},
+		{
+			"name": "Create comment",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "login_get tokens",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"response is ok\",  ()=>{",
+											"    pm.response.to.have.status(204)",
+											"})",
+											"",
+											"pm.test(\"fetch access_token\", ()=>{",
+											"    var access_token = pm.cookies.get('access_token');",
+											"    pm.collectionVariables.set(\"access_token\", access_token);",
+											"})",
+											"",
+											"pm.test(\"fetch refresh_token\", ()=>{",
+											"    var refresh_token = pm.cookies.get('refresh_token');",
+											"    pm.collectionVariables.set(\"refresh_token\", refresh_token);",
+											"})",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n{\n    \"email\": \"adkogan@gmail.com\",\n    \"password\": \"Qwerty123$\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Сreate comment_all valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 2,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "P. Get created comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Bazinga\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName(cyr, 49 letters spaces not included).",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"});",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Тестовое имя пользователя для создания комментария блог\",\n  \"text\": \"You're in my spot\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "P. Get created comment_check user_name_49letters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"my spot\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text_inCyrillic.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Amy\",\n  \"text\": \"«Тео́рия Большо́го взры́ва» (англ. The Big Bang Theory) — американский ситком, созданный Чаком Лорри и Биллом Прэди, которые наряду со Стивеном Моларо являлись главными сценаристами телешоу. Премьера сериала состоялась 24 сентября 2007 года на канале CBS, а показ финального сезона завершился 16 мая 2019 года.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get created comment_text in Cyrillic check",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"американский ситком\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text with 2499 symbols(spaces not included).",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Penny\",\n  \"text\": \"The Big Bang Theory is an American television sitcom created by Chuck Lorre and Bill Prady, both of whom served as executive producers and head writers on the series, along with Steven Molaro. It aired on CBS from September 24, 2007, to May 16, 2019, running for 12 seasons and 279 episodes. The show originally centered on five characters living in Pasadena, California: Leonard Hofstadter (Johnny Galecki) and Sheldon Cooper (Jim Parsons), both physicists at Caltech, who share an apartment; Penny (Kaley Cuoco), a waitress and aspiring actress who lives across the hall; and Leonard and Sheldon's similarly geeky and socially awkward friends and coworkers, aerospace engineer Howard Wolowitz (Simon Helberg) and astrophysicist Raj Koothrappali (Kunal Nayyar). Over time, supporting characters were promoted to starring roles, including neuroscientist Amy Farrah Fowler (Mayim Bialik), microbiologist Bernadette Rostenkowski (Melissa Rauch), and comic book store owner Stuart Bloom (Kevin Sussman).The show was filmed in front of a live audience and produced by Chuck Lorre Productions, with Warner Bros. Television handling distribution. It received mixed reviews throughout its first season, but reception was more favorable in the second and third seasons. Despite early mixed reviews, seven seasons were ranked within the top ten of the final season ratings, and it ultimately reached the No. 1 spot in its eleventh season. It was nominated for the Emmy Award for Outstanding Comedy Series from 2011 to 2014 and won the Emmy Award for Outstanding Lead Actor in a Comedy Series four times for Parsons, totaling seven Emmy Awards from 46 nominations. Parsons also won the Golden Globe for Best Actor in a Television Comedy Series in 2011.The series' success launched a multimedia franchise. A prequel series, titled Young Sheldon and based on Parsons' character Sheldon Cooper, aired from 2017 to 2024, with Parsons reprising his role as the narrating adult Sheldon. The third series in the franchise, a sequel series to Young Sheldon titled Georgie & Mandy's First Marriage, premiered in October 2024 and follows Sheldon's older brother, Georgie, and his wife, Mandy. A fourth series, following Stuart, his girlfriend Denise, and geologist Bert Kibbler, is in development for Max. The show's pilot episode premiered on September 24, 2007. This was the second pilot produced for the show. A different pilot was produced for the 2006–07 television season but never aired. The structure of the original unaired pilot was different from the series' current form. The only main characters retained in both pilots were Leonard (Johnny Galecki) and Sheldon (Jim Parsons), who are named after Sheldon Leonard, a longtime figure in episodic television as a producer, director, and actor. A minor character, Althea (Vernee Watson), appeared in the first scene of both pilots that was retained generally as-is.The first pilot included two female lead characters (p\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get created comment_text with 2499 symbols(spaces not included).",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"The Big Bang Theory is an American television sitcom\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName consists of only one letter.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"// pm.test(\"Status code is 200\", function () {",
+											"//     pm.response.to.have.status(200);",
+											"// });",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"S\",\n  \"text\": \"Howard Wolowitz\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get created comment_check userName_one letter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"// pm.test(\"Status code is 400\", function () {",
+											"//     pm.response.to.have.status(400);",
+											"// });",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"S\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text with 1 symbol.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"});",
+											"",
+											"// pm.test(\"Status code is 400\", function () {",
+											"//     pm.response.to.have.status(400);",
+											"// });",
+											"",
+											"// pm.test(\"Response message check\", function () {",
+											"// var jsonData = pm.response.json();",
+											"// pm.expect(jsonData. message).to.eql(\"text must contain more than one symbol\");",
+											"// });",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Big Bang Theory\",\n  \"text\": \"J\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get created comment_text with 1 symbol",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"J\");",
+											"});",
+											"",
+											"// pm.test(\"Status code is 400\", function () {",
+											"//     pm.response.to.have.status(400);",
+											"// });",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text with 2500 symbols(spaces not included).",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"userName должен быть string\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Bernadette\",\n  \"text\": \"The Canadian alternative rock band Barenaked Ladies wrote and recorded the show's theme song, which describes the history and formation of the universe and the Earth. Co-lead singer Ed Robertson was asked by Lorre and Prady to write a theme song for the show after the producers attended one of the band's concerts in Los Angeles. Coincidentally, Robertson had recently read Simon Singh's book Big Bang, and at the concert he improvised a freestyle rap about the origins of the universe. Lorre and Prady phoned him shortly thereafter and asked him to write the theme song. Having been asked to write songs for other films and shows, but ending up being rejected because producers favored songs by other artists, Robertson agreed to write the theme only after learning that Lorre and Prady had not asked anyone else. On October 9, 2007, a full-length (1 minute and 45 seconds) version of the song was released commercially. Although some unofficial pages identify the song title as History of Everything, the cover art for the single identifies the title as Big Bang Theory Theme. A music video also was released via special features on The Complete Fourth Season DVD and Blu-ray set.The theme was included on the band's greatest hits album, Hits from Yesterday & the Day Before, released on September 27, 2011. In September 2015, TMZ uncovered court documents showing that Steven Page sued[needs update] former bandmate Robertson over the song, alleging that he was promised 20 percent of the proceeds, but that Robertson has kept that money for himself. For the first three seasons, Galecki, Parsons, and Cuoco, the three main stars of the show, received up to $60,000 per episode. Their salaries rose to $200,000 per episode for the fourth season, then went up an additional $50,000 in each of the following three seasons, culminating in $350,000 per episode in the seventh season. In September 2013, Bialik and Rauch renegotiated the contracts they held since they were introduced to the series in 2010. On their old contracts, each was making $20,000–$30,000 per episode, while the new contracts doubled that, beginning at $60,000 per episode, increasing steadily to $100,000 per episode by the end of the contract, as well as adding another year for both. By season seven, Galecki, Parsons, and Cuoco were also receiving 0.25 percent of the series' back-end money. Before production began on the eighth season, the three plus Helberg and Nayyar looked to renegotiate new contracts, with Galecki, Parsons, and Cuoco seeking around $1 million per episode, as well as more back-end money. Contracts were signed in the beginning of August 2014, giving the three principal actors an estimated $1 million per episode for three years, with the possibility to extend for a fourth year. The deals also include larger pieces of the show, signing bonuses, production deals, and advances towards the back-end.Helberg and Nayyar were also able to renegotiate their contracts, giving them a per-ep\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get created comment_text with 2500 symbols(spaces not included).",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"The Canadian alternative rock band Barenaked Ladies\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName(latin, 50 letters spaces not included).",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"});",
+											"",
+											"// pm.test(\"Status code is 400\", function () {",
+											"//     pm.response.to.have.status(400);",
+											"// });",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"TestUserNameForCommentWithoutSpacesFiftyCharacters\",\n  \"text\": \"Leonard Hofstadter\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get created comment_check userName_50letters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Leonard Hofstadter\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Create comment_blogId_no value.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Невалидный json в теле запроса\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\":,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_blogId=0.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"blogId должен быть положительным числом\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\":0,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_not existing blogId=10.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Блог не найден\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\":10,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_negative blogId=-5.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"blogId должен быть положительным числом\");",
+											"});",
+											"",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\":-5,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_ blogId=\"5\" as a String.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"blogId должен быть int\");",
+											"});",
+											"",
+											"",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": \"1\",\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_blogId_omitted.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"blogId не должен быть пустым\");",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName with no value.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Невалидный json в теле запроса\");",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\":,\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName value is not String.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"userName должен быть string\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": 1234,\n  \"text\": \"Bazinga Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text with 2501 symbols(spaces not included).",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"text must contain 2500 symbols max\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Priya\",\n  \"text\": \"One of the recurring plot lines is the relationship between Leonard and Penny. Leonard becomes attracted to Penny in the pilot episode, and his need to do favors for her is a frequent point of humor in the first season. Meanwhile, Penny dates a series of muscular, stereotypically attractive, unintelligent, and insensitive jocks. Their first long-term relationship begins when Leonard returns from a three-month expedition to the North Pole in the season 3 premiere. However, when Leonard tells Penny that he loves her, she realizes she cannot say it back, and they break up. Both Leonard and Penny go on to date other people, most notably with Leonard dating Raj's sister Priya for much of season 4. This relationship is jeopardized when Leonard mistakenly comes to believe that Raj has slept with Penny, and it ultimately ends when Priya sleeps with a former boyfriend in The Good Guy Fluctuation. Penny, who admits to missing Leonard in The Roommate Transmogrification, accepts his request to renew their relationship in The Beta Test Initiation. After Penny suggests having sex in The Launch Acceleration, Leonard breaks the mood by proposing to her. Penny says no but does not break up with him. She stops a proposal a second time in The Tangible Affection Proof. In the sixth-season episode, The 43 Peculiarity, Penny finally tells Leonard that she loves him. Although they both feel jealousy when the other receives significant attention from the opposite sex, Penny is secure in their relationship, even when he leaves on a four-month expedition to the North Sea in The Bon Voyage Reaction. After he returns, the relationship blossoms over the seventh season. In the penultimate episode The Gorilla Dissolution, Penny admits that they should marry and when Leonard realizes that she is serious, he proposes with a ring that he has been carrying for years. Leonard and Penny decide to elope to Las Vegas in the season 8 finale, but beforehand, wanting no secrets, Leonard admits to kissing another woman, Mandy Chow (Melissa Tang) while on the expedition. Despite this, Leonard and Penny finally marry in the season 9 premiere and remain happy. By the Season 9 finale, Penny and Leonard decide to have a second wedding ceremony for their family and friends, to make up for eloping. In season 10, Sheldon moves into Penny's old apartment with Amy, allowing Penny and Leonard to finally live on their own as husband and wife. In season 12, Penny announces that she does not want to have any children and Leonard reluctantly supports her decision. Later, her old boyfriend Zack and his new wife want Leonard to be a surrogate father to their kid since Zack is infertile. Penny reluctantly agrees to let Leonard donate his sperm. However, when she tries to seduce Leonard despite knowing he has to be abstinent for a few days, her visiting father, Wyatt, points out to Penny that her own actions suggest she is more conflicted over having kids than she lets on, and she admits she is serious, he propos\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get created comment_text with 2501 symbols(spaces not included).",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"recurring plot lines\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text with  only space in value.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"text не должен быть пустым\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \" \"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text with value omitted.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Невалидный json в теле запроса\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Leonard Hofstadter\",\n  \"text\":\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text with value as Integer.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"text должен быть string\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": 123456\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text omitted.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"text не должен быть пустым\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Rajesh Kothrappali\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_not a JSON.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Невалидный json в теле запроса\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  \"blogId\": 1,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": 123456",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_empty JSON.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Невалидный json в теле запроса\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName_XSS Injection.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"<script>alert('XSS');</script>\",\n  \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text_SQL injection.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Status code is 500\", function () {",
+											"    pm.response.to.have.status(500);",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"'; SELECT * FROM users LIMIT 5\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_text with empty value.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"text не должен быть пустым\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"Sheldon Cooper\",\n  \"text\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName contains only symbols.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"});",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"@*$!\",\n  \"text\": \"Bazinga\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get created comment_check userName_symbols",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"*$!\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName contains empty value.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// pm.test(\"Status code is 200\", function () {",
+											"//     pm.response.to.have.status(200);",
+											"// });",
+											"",
+											"",
+											"// pm.test(\"Response message check\", function () {",
+											"// var jsonData = pm.response.json();",
+											"// pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"// });",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"userName не должен быть пустым\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"userName\": \"\",\n  \"text\": \"Raj Koothrappali\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get created comment_check userName_empty UserName",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"// pm.test(\"Status code is 400\", function () {",
+											"//     pm.response.to.have.status(400);",
+											"// });",
+											"",
+											"",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Raj Koothrappali\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName omitted.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// pm.test(\"Status code is 200\", function () {",
+											"//     pm.response.to.have.status(200);",
+											"// });",
+											"",
+											"",
+											"// pm.test(\"Response message check\", function () {",
+											"// var jsonData = pm.response.json();",
+											"// pm.expect(jsonData. message).to.eql(\"Спасибо за ваш комментарий!\");",
+											"// });",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"userName не должен быть пустым\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"text\": \"Doppler effect\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get created comment__userName omitted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Doppler effec\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/blog/{{blog_Id1}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"blog",
+										"{{blog_Id1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment_userName(cyr, 51 letters spaces not included)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"blogId\": 1,\n    \"userName\": \"Тестовое имя пользователя для создания комментария к блогу\",\n    \"text\": \"Bazinga\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Создание комментария для определенной статьи блога\n\n200 Успешное создание комментария для определенной статьи блога  \n400 Невалидный json в теле запроса  \n400 blogId не должен быть пустым  \n400 blogId должен быть int  \n400 blogId должен быть положительным числом  \n400 text не должен быть пустым  \n400 text должен быть string  \n404 Блог не найден\n\n\\*text - min and max lenght - under discussion\n\n\\*userName min and max lenght - under discussion\n\n\\*userName being required or not required -under discussion"
 		}
 	],
 	"event": [
