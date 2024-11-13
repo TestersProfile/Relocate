@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "976ae83a-2ec1-4319-82f7-5d27861c8e52",
+		"_postman_id": "59c9d166-7c32-4093-bf6b-10921dad14b4",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "36636605"
+		"_exporter_id": "26631222"
 	},
 	"item": [
 		{
@@ -5045,14 +5045,7 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Проверка текста сообщения\", function () {",
-											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
-											"});",
-											"",
-											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"Unauthorized\");",
-											"});"
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -5096,14 +5089,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5113,27 +5102,15 @@
 								}
 							},
 							"response": []
-						}
-					]
-				},
-				{
-					"name": "Positive",
-					"item": [
+						},
 						{
-							"name": "Update User Data - All Fields Correct",
+							"name": "UpdateUserData - userName SQL injection",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Проверка текста сообщения\", function () {",
-											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
-											"});",
-											"",
-											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"Unauthorized\");",
-											"});"
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -5169,6 +5146,80 @@
 								],
 								"body": {
 									"mode": "raw",
+									"raw": "{\n\"email\": \"m1@mail.ru' OR '1'='1\",\n\"userName\": \"';SELECT * FROM users LIMIT 3;-- \",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Update User Data - All Fields Correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"400 Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
 									"raw": "{\n    \"email\": \"m1@mail.ru\",\n    \"userName\": \"testUser\",\n    \"countryId\": 1,\n    \"currency\": \"USD\",\n    \"language\": \"en\"\n}",
 									"options": {
 										"raw": {
@@ -5177,14 +5228,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5209,11 +5256,11 @@
 										"exec": [
 											"pm.test(\"Проверка текста сообщения\", function () {",
 											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
+											"pm.expect(jsonData.message).to.eql(\"Недопустимый адрес электронной почты\");",
 											"});",
 											"",
 											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"Unauthorized\");",
+											"pm.response.to.have.status(\"400 Bad Request\");",
 											"});"
 										],
 										"type": "text/javascript",
@@ -5258,14 +5305,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5285,7 +5328,7 @@
 										"exec": [
 											"pm.test(\"Проверка текста сообщения\", function () {",
 											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
+											"pm.expect(jsonData.message).to.eql(\"userName должен быть string\");",
 											"});",
 											"",
 											"pm.test(\"Status code name has string\", function () {",
@@ -5334,14 +5377,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5410,14 +5449,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5486,14 +5521,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5562,14 +5593,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5595,14 +5622,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5628,14 +5651,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5661,14 +5680,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5694,14 +5709,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5730,14 +5741,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://dev.relocatein.eu:90/api/v1/user/update",
-									"protocol": "http",
+									"raw": "{{base_url}}/api/v1/user/update",
 									"host": [
-										"dev",
-										"relocatein",
-										"eu"
+										"{{base_url}}"
 									],
-									"port": "90",
 									"path": [
 										"api",
 										"v1",
@@ -5751,7 +5758,7 @@
 					]
 				},
 				{
-					"name": "UserLogin",
+					"name": "Login_getTokens",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -5767,7 +5774,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									" pm.test(\"fetch access_token\", ()=>{",
+									"pm.test(\"response is ok\",  ()=>{",
+									"    pm.response.to.have.status(204)",
+									"})",
+									"",
+									"pm.test(\"fetch access_token\", ()=>{",
 									"    var access_token = pm.cookies.get('access_token');",
 									"    pm.collectionVariables.set(\"access_token\", access_token);",
 									"})",
@@ -5788,12 +5799,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "{{refresh_token}}",
+									"value": "",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "{{access_token}}",
+									"value": "",
 									"type": "string"
 								}
 							]
