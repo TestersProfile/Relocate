@@ -1026,9 +1026,9 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{host}}/api/v1/b",
+							"raw": "{{base_url}}/api/v1/b",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"api",
@@ -1045,9 +1045,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/blog/1",
+							"raw": "{{base_url}}/api/v1/blog/1",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"api",
@@ -1065,9 +1065,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/blog/page",
+							"raw": "{{base_url}}/api/v1/blog/page",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"api",
@@ -1078,102 +1078,12 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Leave a comment in Blog",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "\"Тестовый коммент\"",
-							"options": {
-								"raw": {
-									"language": "text"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/v1/blog/1/comment",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"blog",
-								"1",
-								"comment"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
 		{
 			"name": "Country",
-			"item": [
-				{
-					"name": "Show All Countries",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/country",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"country"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show A Country",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/country/ger",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"country",
-								"ger"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Compare Countries",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/v1/country/compare",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"country",
-								"compare"
-							]
-						}
-					},
-					"response": []
-				}
-			]
+			"item": []
 		},
 		{
 			"name": "Create comment",
