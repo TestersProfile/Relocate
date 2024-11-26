@@ -9731,11 +9731,6 @@
 		{
 			"key": "expiredCookies",
 			"value": ""
-		},
-		{
-			"key": "published_сountry_id",
-			"value": "43",
-			"type": "string"
 		}
 	]
 }
