@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a8b1d147-9f6b-4dc7-86d2-9367353cfa61",
+		"_postman_id": "5d87b047-288b-475a-81c5-17fe91d3ce7d",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26631222"
+		"_exporter_id": "25119303"
 	},
 	"item": [
 		{
@@ -8613,6 +8613,1073 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "User Favorite Country",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Add a country to Favorites",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Страна добавлена в избранное\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": {{published_сountry_id}} ,\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Сheck the country is favorite",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"The country is favorite\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var countryIdToCheck = pm.environment.get(\"published_country_id\"); // Получаем значение переменной",
+											"    var countryFound = jsonData.countries.some(function(country) {",
+											"        return country.id === countryIdToCheck;",
+											"    });",
+											"    ",
+											"    pm.expect(countryFound).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add the country to Favorites again",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Страна добавлена в избранное\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": {{published_сountry_id}},\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a country from Favorites",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Страна удалена из избранного\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": {{published_сountry_id}},\n  \"isFavorite\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Сheck the country is not favorite",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"The country is not favorite\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    var countryIdToCheck = pm.environment.get(\"published_country_id\"); // Получаем значение переменной",
+											"    var countryFound = jsonData.countries.some(function(country) {",
+											"        return country.id === countryIdToCheck;",
+											"    });",
+											"    ",
+											"    pm.expect(countryFound).to.be.false;",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete the country from Favorites again",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Страна удалена из избранного\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": {{existing_country_id}},\n  \"isFavorite\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Negative countryId",
+							"item": [
+								{
+									"name": "Add a country with non-existent countryId",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function() {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Страна не найдена\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Not Found\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"countryId\": 999,\n  \"isFavorite\": false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add a country: countryId with missing value",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function() {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Bad Request\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"countryId\": ,\n  \"isFavorite\": false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add a country: countryId with negative value",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function() {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"countryId должен быть положительным числом\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Bad Request\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"countryId\": -43,\n  \"isFavorite\": false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add a country: with missing key countryId",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function() {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"countryId не должен быть пустым\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Bad Request\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"isFavorite\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add a country:  countryId is null",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function() {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"countryId должен быть int\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Bad Request\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"countryId\": null , \n\"isFavorite\": false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add a country:  countryId with SQL injection",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function() {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Bad Request\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\" \"countryId\": \"43 OR 1=1\" , \n  \"isFavorite\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Negative isFavorite",
+							"item": [
+								{
+									"name": "Add a country: isFavorite with missing value",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function() {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Bad Request\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"countryId\": 43 , \n  \"isFavorite\": \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add a country:  with missing key isFavorite",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function() {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"isFavorite не должен быть пустым\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Bad Request\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"countryId\": 43\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add a country:  isFavorite is null",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function() {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Проверка текста сообщения\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.message).to.eql(\"isFavorite должен быть bool\");",
+													"});",
+													"",
+													"pm.test(\"Status code name has string\", function () {",
+													"pm.response.to.have.status(\"Bad Request\");",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"countryId\": 43 , \n  \"isFavorite\": null\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/v1/user/country",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"user",
+												"country"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Add a country with non-json in the body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n  \"countryId\": 43,\n  \"isFavorite\": false\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add a country with empty json in the body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Переменная {published_сountry_id} обозначает ID опубликованной страны на сайте.  \nВажно проверить на момент тестирования, что такая страна действительно опубликована, либо поменять переменную на актуальный ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.environment.set(\"published_country_id\", 43);",
+							"",
+							"console.log(\"Значение переменной published_country_id: \", pm.environment.get(\"published_country_id\"));"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	],
 	"event": [
@@ -8664,6 +9731,11 @@
 		{
 			"key": "expiredCookies",
 			"value": ""
+		},
+		{
+			"key": "published_сountry_id",
+			"value": "43",
+			"type": "string"
 		}
 	]
 }
