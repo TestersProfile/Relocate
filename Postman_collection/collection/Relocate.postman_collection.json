@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "91757d26-de50-46a1-8be7-872ab97fd383",
+		"_postman_id": "a8b1d147-9f6b-4dc7-86d2-9367353cfa61",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20685134"
+		"_exporter_id": "26631222"
 	},
 	"item": [
 		{
@@ -5033,862 +5033,6 @@
 			"description": "Тестирование метода для регистрации пользователя через электронную почту.\n\nТребования:\n\n1. Тело - json\n    \n2. email/password должен быть string\n    \n3. email/password не должен быть пустым\n    \n4. Допустимый адрес электронной почты\n    \n5. Пароль должен содержать не менее 8 символов\n    \n6. Пароль должен содержать не более 20 символов\n    \n7. Пароль не должен содержать пробел\n    \n8. Пароль должен содержать хотя бы одну цифру\n    \n9. Пароль должен содержать хотя бы одну строчную букву\n    \n10. Пароль должен содержать хотя бы одну заглавную букву\n    \n11. Пароль не содержит недопустимый символ (КАКОЙ???)\n    \n12. Регистрация не успешная если пользователь с таким email уже существует"
 		},
 		{
-			"name": "Update User Data",
-			"item": [
-				{
-					"name": "SQL vulnerabilities",
-					"item": [
-						{
-							"name": "UpdateUserData - SQL Email injection",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "accept",
-										"value": "*/*"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Cookie",
-										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\"email\": \"m1@mail.ru' OR '1'='1\",\n\"userName\": \"testUser\",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - userName SQL injection",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "accept",
-										"value": "*/*"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Cookie",
-										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\"email\": \"m1@mail.ru' OR '1'='1\",\n\"userName\": \"';SELECT * FROM users LIMIT 3;-- \",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Positive",
-					"item": [
-						{
-							"name": "Update User Data - All Fields Correct",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Проверка текста сообщения\", function () {",
-											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
-											"});",
-											"",
-											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"400 Bad Request\");",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "accept",
-										"value": "*/*"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Cookie",
-										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\": \"m1@mail.ru\",\n    \"userName\": \"testUser\",\n    \"countryId\": 1,\n    \"currency\": \"USD\",\n    \"language\": \"en\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Negative",
-					"item": [
-						{
-							"name": "Update User Data - Incorrect Email",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Проверка текста сообщения\", function () {",
-											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Недопустимый адрес электронной почты\");",
-											"});",
-											"",
-											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"400 Bad Request\");",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "accept",
-										"value": "*/*"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Cookie",
-										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\": \"m1mail.ru\",\n    \"userName\": \"testUser\",\n    \"countryId\": 1,\n    \"currency\": \"USD\",\n    \"language\": \"en\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - Invalid Data Type for userName",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Проверка текста сообщения\", function () {",
-											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"userName должен быть string\");",
-											"});",
-											"",
-											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"Unauthorized\");",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "accept",
-										"value": "*/*"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Cookie",
-										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\": \"m1@mail.ru\",\n    \"userName\": 1,\n    \"countryId\": 1,\n    \"currency\": \"USD\",\n    \"language\": \"en\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - Non-existent countryId",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Проверка текста сообщения\", function () {",
-											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
-											"});",
-											"",
-											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"Unauthorized\");",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "accept",
-										"value": "*/*"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Cookie",
-										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "    {\n      \"email\": \"user@example.com\",\n      \"userName\": \"testUser\",\n      \"countryId\": 9999,\n      \"currency\": \"USD\",\n      \"language\": \"en\"\n    }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - countryId = 0",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Проверка текста сообщения\", function () {",
-											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
-											"});",
-											"",
-											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"Unauthorized\");",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "accept",
-										"value": "*/*"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Cookie",
-										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "    {\n      \"email\": \"user@example.com\",\n      \"userName\": \"testUser\",\n      \"countryId\": 0,\n      \"currency\": \"USD\",\n      \"language\": \"en\"\n    }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - countryId = -1",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Проверка текста сообщения\", function () {",
-											"var jsonData = pm.response.json();",
-											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
-											"});",
-											"",
-											"pm.test(\"Status code name has string\", function () {",
-											"pm.response.to.have.status(\"Unauthorized\");",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "accept",
-										"value": "*/*"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Cookie",
-										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "    {\n      \"email\": \"user@example.com\",\n      \"userName\": \"testUser\",\n      \"countryId\": -1,\n      \"currency\": \"USD\",\n      \"language\": \"en\"\n    }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - countryId = maximum integer",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\"email\": \"user@example.com\",\n\"userName\": \"testUser\",\n\"countryId\": 2147483647,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - Email Field Missing",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\"userName\": \"testUser\",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - Empty JSON",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\n\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - Non-JSON",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "\"email\": \"user@example.com\",\n\"userName\": \"testUser\",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "UpdateUserData - No Auth Token",
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\"email\": \"user@example.com\",\n\"userName\": \"testUser\",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/api/v1/user/update",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"user",
-										"update"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Login_getTokens",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"response is ok\",  ()=>{",
-									"    pm.response.to.have.status(204)",
-									"})",
-									"",
-									"pm.test(\"fetch access_token\", ()=>{",
-									"    var access_token = pm.cookies.get('access_token');",
-									"    pm.collectionVariables.set(\"access_token\", access_token);",
-									"})",
-									"",
-									"pm.test(\"fetch refresh_token\", ()=>{",
-									"    var refresh_token = pm.cookies.get('refresh_token');",
-									"    pm.collectionVariables.set(\"refresh_token\", refresh_token);",
-									"})"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "accept",
-								"value": "*/*"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\": \"m1@mail.ru\",\n  \"password\": \"!QAZ2wsx\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://dev.relocatein.eu:90/api/v1/auth/login",
-							"protocol": "http",
-							"host": [
-								"dev",
-								"relocatein",
-								"eu"
-							],
-							"port": "90",
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetUserData",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3Mjk1ODIyNTMsImV4cCI6MTcyOTU4Mjg1Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.rzBVTCthY3QP6BZ1Yr7idcCKJRjg-08iSuL3mqCw94Ld6pYO7idt7mVolls07HCTPDmZn1OZUkaEZZpMGaounrma_7s1jk7CQBh90Nq0tHdW7-qddzwAr9IOfhcO3fvDm6vyBBj3bkmY6RC_CdyJ7AdErQeuQ0nvZyIMMXD6Z-rbt5BX8lhPWdXCmabus-zALSv-uFB97e3Ava-7ys1EqGPmPlLlysy9lm-hGxzlnKhVT6C8FaxFHUP9PLfh2nmH1Y6RlQsCrMoRin_aMQwroZH9KBObuYu36_QADB7JDOZJiE6LYL6EIfjk_dyWy68ygReW-M6bOshf8sfi_RKugw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "http://dev.relocatein.eu:90/api/v1/user",
-							"protocol": "http",
-							"host": [
-								"dev",
-								"relocatein",
-								"eu"
-							],
-							"port": "90",
-							"path": [
-								"api",
-								"v1",
-								"user"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "User",
 			"item": [
 				{
@@ -8456,6 +7600,1017 @@
 							}
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Update User Data",
+			"item": [
+				{
+					"name": "SQL vulnerabilities",
+					"item": [
+						{
+							"name": "UpdateUserData - SQL Email injection",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"email\": \"m1@mail.ru' OR '1'='1\",\n\"userName\": \"testUser\",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - userName SQL injection",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"email\": \"m1@mail.ru' OR '1'='1\",\n\"userName\": \"';SELECT * FROM users LIMIT 3;-- \",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Login of a registered user with correct 'email’, ‘password’",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const cookies = pm.cookies;",
+											"const accessToken = cookies.get('access_token');",
+											"pm.globals.set('access_token', accessToken);",
+											"const refreshToken = cookies.get('refresh_token');",
+											"pm.globals.set('refresh_token', refreshToken);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"No Content\");",
+											"});",
+											"pm.test(\"fetch access_token\", ()=>{",
+											"    var access_token = pm.cookies.get('access_token');",
+											"    pm.collectionVariables.set(\"access_token\", access_token);",
+											"})",
+											"pm.test(\"fetch refresh_token\", ()=>{",
+											"    var refresh_token = pm.cookies.get('refresh_token');",
+											"    pm.collectionVariables.set(\"refresh_token\", refresh_token);",
+											"})",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"m1@mail.ru\",\n  \"password\": \"!QAZ2wsx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Data - All Fields Correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).to.eql(\"Профиль пользователя обновлен\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"400 Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"m1@mail.ru\",\n    \"userName\": \"testUser\",\n    \"countryId\": 1,\n    \"currency\": \"USD\",\n    \"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Data - One Field Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Update User Data - Incorrect Email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).to.eql(\"Недопустимый адрес электронной почты\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"400 Bad Request\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"m1mail.ru\",\n    \"userName\": \"testUser\",\n    \"countryId\": 1,\n    \"currency\": \"USD\",\n    \"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - Invalid Data Type for userName",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).to.eql(\"userName должен быть string\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Unauthorized\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"m1@mail.ru\",\n    \"userName\": 1,\n    \"countryId\": 1,\n    \"currency\": \"USD\",\n    \"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - Non-existent countryId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).to.eql(\"Страна не найдена\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Unauthorized\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n      \"email\": \"user@example.com\",\n      \"userName\": \"testUser\",\n      \"countryId\": 9999,\n      \"currency\": \"USD\",\n      \"language\": \"en\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - countryId = 0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).to.eql(\"Страна не найдена\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Unauthorized\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n      \"email\": \"user@example.com\",\n      \"userName\": \"testUser\",\n      \"countryId\": 0,\n      \"currency\": \"USD\",\n      \"language\": \"en\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - countryId = -1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData.message).to.eql(\"Страна не найдена\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Unauthorized\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MzAxOTE5MTcsImV4cCI6MTczMDE5MjUxNywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.KDocWjGEYNMx5EIdLmOOtvByax5MN6Uct6oXhzEpMsNLuAQqyuXTV1AFsLPUiMAQvEyzZK9MiLNq187s4q3wSpuK0Sit0_jywPiEcJw6YSIzalkB9XBgwedu-wG82pH3LhXgKOeCUQ7n4d1NoXB0xkyAkkXHf22QTj_Ao2SO1HZ1dhd6JSKXhxQ7D9sIDP4yhpFP14RKw2B-ylu_eI6D6F8otrUpG4zEo68d1Y6_NybuYmHiBujBXRflLlPlzWo8AZ89lKIxYJb9YNYzfcXPjtUGeHUjFmLEDJ7Cr8l665j2xjTW-Y8sDqGnTO0ws8TSeFip2GMB2LrsnY3RK0X0iQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}}; refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n      \"email\": \"user@example.com\",\n      \"userName\": \"testUser\",\n      \"countryId\": -1,\n      \"currency\": \"USD\",\n      \"language\": \"en\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - countryId = maximum integer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"email\": \"user@example.com\",\n\"userName\": \"testUser\",\n\"countryId\": 2147483647,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - Email Field Missing",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Проверка наличия поля email и его значения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    ",
+											"    // Проверяем, что поле email существует",
+											"    pm.expect(jsonData).to.have.property('email');",
+											"",
+											"    // Дополнительная проверка: убедимся, что email имеет правильный формат",
+											"    pm.expect(jsonData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"userName\": \"testUser\",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - Empty JSON",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Получаем тело запроса",
+											"var requestBody = pm.request.body.raw;",
+											"",
+											"// Проверяем, что тело запроса не пустое",
+											"pm.test(\"Проверка, что отправлен не пустой JSON\", function () {",
+											"    // Парсим JSON",
+											"    var jsonData = {};",
+											"    try {",
+											"        jsonData = JSON.parse(requestBody);",
+											"    } catch (e) {",
+											"        pm.expect.fail(\"Тело запроса не является корректным JSON\");",
+											"    }",
+											"",
+											"    // Проверяем, что JSON не пустой",
+											"    pm.expect(jsonData).to.be.an('object').that.is.not.empty;",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - Non-JSON",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"email\": \"user@example.com\",\n\"userName\": \"testUser\",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateUserData - No Auth Token",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"email\": \"user@example.com\",\n\"userName\": \"testUser\",\n\"countryId\": 1,\n\"currency\": \"USD\",\n\"language\": \"en\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/update",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login_getTokens",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response is ok\",  ()=>{",
+									"    pm.response.to.have.status(204)",
+									"})",
+									"",
+									"pm.test(\"fetch access_token\", ()=>{",
+									"    var access_token = pm.cookies.get('access_token');",
+									"    pm.collectionVariables.set(\"access_token\", access_token);",
+									"})",
+									"",
+									"pm.test(\"fetch refresh_token\", ()=>{",
+									"    var refresh_token = pm.cookies.get('refresh_token');",
+									"    pm.collectionVariables.set(\"refresh_token\", refresh_token);",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"m1@mail.ru\",\n  \"password\": \"!QAZ2wsx\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserData",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3Mjk1ODIyNTMsImV4cCI6MTcyOTU4Mjg1Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoibTFAbWFpbC5ydSJ9.rzBVTCthY3QP6BZ1Yr7idcCKJRjg-08iSuL3mqCw94Ld6pYO7idt7mVolls07HCTPDmZn1OZUkaEZZpMGaounrma_7s1jk7CQBh90Nq0tHdW7-qddzwAr9IOfhcO3fvDm6vyBBj3bkmY6RC_CdyJ7AdErQeuQ0nvZyIMMXD6Z-rbt5BX8lhPWdXCmabus-zALSv-uFB97e3Ava-7ys1EqGPmPlLlysy9lm-hGxzlnKhVT6C8FaxFHUP9PLfh2nmH1Y6RlQsCrMoRin_aMQwroZH9KBObuYu36_QADB7JDOZJiE6LYL6EIfjk_dyWy68ygReW-M6bOshf8sfi_RKugw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://dev.relocatein.eu:90/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"dev",
+								"relocatein",
+								"eu"
+							],
+							"port": "90",
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
