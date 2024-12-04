@@ -9201,7 +9201,7 @@
 													"",
 													"pm.test(\"Проверка текста сообщения\", function () {",
 													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.message).to.eql(\"Невалидный json в теле запроса\");",
+													"    pm.expect(jsonData.message).to.eql(\"countryId должен быть int\");",
 													"});",
 													"",
 													"pm.test(\"Status code name has string\", function () {",
@@ -9228,7 +9228,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\" \"countryId\": \"43 OR 1=1\" , \n  \"isFavorite\": true\n}",
+											"raw": "{\n\"countryId\": \"43 OR 1=1\" , \n\"isFavorite\": true\n}",
 											"options": {
 												"raw": {
 													"language": "json"
