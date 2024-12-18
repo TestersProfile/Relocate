@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5d87b047-288b-475a-81c5-17fe91d3ce7d",
+		"_postman_id": "f416e2fa-882d-4d01-887c-98ea67ab01f0",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25119303"
@@ -1026,14 +1026,15 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{base_url}}/api/v1/b",
+							"raw": "{{base_url}}/api/v1/blog/",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"b"
+								"blog",
+								""
 							]
 						}
 					},
@@ -9588,6 +9589,188 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "User Information",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Get User Information Successfully",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response is JSON\", function () {",
+											"    pm.response.json();",
+											"    });",
+											"",
+											"pm.test(\"Response contains fields: id, countries, blogs\", function () {",
+											"    const jsonData = pm.response.json();",
+											"",
+											"    // Проверка наличия обязательных полей",
+											"    pm.expect(jsonData).to.have.property(\"id\").that.is.a(\"number\");",
+											"    pm.expect(jsonData).to.have.property(\"countries\").that.is.an(\"array\");",
+											"    pm.expect(jsonData).to.have.property(\"blogs\").that.is.an(\"array\");",
+											"     });"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userId\": \"1 OR '1'='1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Logout",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/v1/auth/logout",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User Information Without User Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code 401 is correct\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test(\"Status code name has correct string\", function () {",
+											"    pm.response.to.have.status(\"Unauthorized\");",
+											"});",
+											"pm.test(\"Response message is valid\", function() {",
+											"    pm.expect(pm.response.json().message).to.eql(\"Access токен не найден\")",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
