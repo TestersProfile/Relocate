@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "f416e2fa-882d-4d01-887c-98ea67ab01f0",
+		"_postman_id": "2b713d74-6637-4e46-b388-37ab6cdf4d94",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25119303"
+		"_exporter_id": "5251561"
 	},
 	"item": [
 		{
@@ -9773,6 +9773,582 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Country compare",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "compare two countries",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"France\");",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Germany\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    \"France\", \"Germany\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "compare two countries_ru",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Франция\");",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Германия\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    \"Франция\", \"Германия\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "compare min number of countries",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"France\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    \"France\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "compare_max number of countries",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"France\");",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Germany\");",
+											"});",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Poland\");",
+											"});",
+											"",
+											"pm.test(\"Body matches string\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"United States\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    \"France\", \"Germany\", \"Poland\", \"United States\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "letter case  sensitive",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    \"france\", \"United states\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "compare duplicate countries",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    \"France\", \"France\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "compare non-existent country",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Страна не найдена\");",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    \"Neverland\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "no countries in array",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Массив со странами не должен быть пустым\");",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n   \n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Integer instead of String in countries",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Невалидный json в теле запроса\");",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    1, 2\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrong json format",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Невалидный json в теле запроса\");",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n  \"countries\": [\n    \"France\", \"Germany\"\n  ]\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SQL injection",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Response message check\", function () {",
+											"var jsonData = pm.response.json();",
+											"pm.expect(jsonData. message).to.eql(\"Страна не найдена\");",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countries\": [\n    \"'; SELECT * FROM users LIMIT 5\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/country/compare",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"country",
+										"compare"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Метод для сравнения стран.\n\nНа текущий момент - метод просто возвращает всю информацию о странах, позволяет сделать запрос с одной страной.\n\n200 Получение информации о нескольких странах для сравнения  \n400 1) Невалидный json в теле запроса  \n2) Допустимые значения: ...  \n404 Страна не найдена"
 		}
 	],
 	"event": [
