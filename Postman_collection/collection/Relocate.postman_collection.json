@@ -1122,7 +1122,13 @@
 							],
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "\n{\n    \"email\": \"adkogan@gmail.com\",\n    \"password\": \"Qwerty123$\"\n}",
@@ -10349,6 +10355,256 @@
 				}
 			],
 			"description": "Метод для сравнения стран.\n\nНа текущий момент - метод просто возвращает всю информацию о странах, позволяет сделать запрос с одной страной.\n\n200 Получение информации о нескольких странах для сравнения  \n400 1) Невалидный json в теле запроса  \n2) Допустимые значения: ...  \n404 Страна не найдена"
+		},
+		{
+			"name": "Get blog by Slug",
+			"item": [
+				{
+					"name": "valid request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response is ok\",  ()=>{",
+									"    pm.response.to.have.status(200)",
+									"})",
+									"",
+									"pm.test(\"Response contains required fields with correct types\", function () {",
+									"    let jsonData = pm.response.json();",
+									"",
+									"    // Проверка верхнего уровня",
+									"    pm.expect(jsonData).to.have.property(\"id\").that.is.a(\"number\");",
+									"    pm.expect(jsonData).to.have.property(\"title\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"description\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"h1\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"content\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"isPublished\").that.is.a(\"boolean\");",
+									"    pm.expect(jsonData).to.have.property(\"publishedAt\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"link\").that.is.a(\"string\");",
+									"    pm.expect(jsonData).to.have.property(\"likesCounter\").that.is.a(\"number\");",
+									"    pm.expect(jsonData).to.have.property(\"category\").that.is.a(\"string\");",
+									"",
+									"    // Проверка формата даты (ISO 8601 с возможными вариациями)",
+									"    const iso8601Regex = /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?(Z|[+-]\\d{2}:\\d{2})?$/;",
+									"    pm.expect(jsonData.publishedAt).to.match(iso8601Regex);",
+									"",
+									"    // Проверка массива tags",
+									"    pm.expect(jsonData).to.have.property(\"tags\").that.is.an(\"array\");",
+									"    if (jsonData.tags.length > 0) {",
+									"        pm.expect(jsonData.tags[0]).to.be.a(\"string\");",
+									"    }",
+									"",
+									"    // Проверка mainImage",
+									"    pm.expect(jsonData).to.have.property(\"mainImage\").that.is.an(\"object\");",
+									"    pm.expect(jsonData.mainImage).to.have.property(\"path\").that.is.a(\"string\");",
+									"    pm.expect(jsonData.mainImage).to.have.property(\"titleAlt\").that.is.a(\"string\");",
+									"",
+									"    // Проверка массива comments",
+									"    pm.expect(jsonData).to.have.property(\"comments\").that.is.an(\"array\");",
+									"    if (jsonData.comments.length > 0) {",
+									"        let comment = jsonData.comments[0];",
+									"        pm.expect(comment).to.have.property(\"text\").that.is.a(\"string\");",
+									"        pm.expect(comment).to.have.property(\"createdAt\").that.is.a(\"string\");",
+									"        pm.expect(comment.createdAt).to.match(iso8601Regex); // Проверка формата даты",
+									"",
+									"        // Проверка объекта author внутри comments",
+									"        pm.expect(comment).to.have.property(\"author\").that.is.an(\"object\");",
+									"        pm.expect(comment.author).to.have.property(\"userName\").that.is.a(\"string\");",
+									"        pm.expect(comment.author).to.have.property(\"userImage\").that.is.an(\"object\");",
+									"        pm.expect(comment.author.userImage).to.have.property(\"imagePath\").that.is.a(\"string\");",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/blog/vyvoz-zivotnyh-za-granicu-kak-podgotovit-sa-i-cto-nuzno-znat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"vyvoz-zivotnyh-za-granicu-kak-podgotovit-sa-i-cto-nuzno-znat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "not found slug",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response is ok\",  ()=>{",
+									"    pm.response.to.have.status(404)",
+									"})",
+									"",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Блог не найден\");",
+									"});",
+									"",
+									"// pm.test(\"Response contains required fields with correct types\", function () {",
+									"//     let jsonData = pm.response.json();",
+									"",
+									"//     // Проверка верхнего уровня",
+									"//     pm.expect(jsonData).to.have.property(\"id\").that.is.a(\"number\");",
+									"//     pm.expect(jsonData).to.have.property(\"title\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"description\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"h1\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"content\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"isPublished\").that.is.a(\"boolean\");",
+									"//     pm.expect(jsonData).to.have.property(\"publishedAt\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"link\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"likesCounter\").that.is.a(\"number\");",
+									"//     pm.expect(jsonData).to.have.property(\"category\").that.is.a(\"string\");",
+									"",
+									"//     // Проверка формата даты (ISO 8601 с возможными вариациями)",
+									"//     const iso8601Regex = /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?(Z|[+-]\\d{2}:\\d{2})?$/;",
+									"//     pm.expect(jsonData.publishedAt).to.match(iso8601Regex);",
+									"",
+									"//     // Проверка массива tags",
+									"//     pm.expect(jsonData).to.have.property(\"tags\").that.is.an(\"array\");",
+									"//     if (jsonData.tags.length > 0) {",
+									"//         pm.expect(jsonData.tags[0]).to.be.a(\"string\");",
+									"//     }",
+									"",
+									"//     // Проверка mainImage",
+									"//     pm.expect(jsonData).to.have.property(\"mainImage\").that.is.an(\"object\");",
+									"//     pm.expect(jsonData.mainImage).to.have.property(\"path\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData.mainImage).to.have.property(\"titleAlt\").that.is.a(\"string\");",
+									"",
+									"//     // Проверка массива comments",
+									"//     pm.expect(jsonData).to.have.property(\"comments\").that.is.an(\"array\");",
+									"//     if (jsonData.comments.length > 0) {",
+									"//         let comment = jsonData.comments[0];",
+									"//         pm.expect(comment).to.have.property(\"text\").that.is.a(\"string\");",
+									"//         pm.expect(comment).to.have.property(\"createdAt\").that.is.a(\"string\");",
+									"//         pm.expect(comment.createdAt).to.match(iso8601Regex); // Проверка формата даты",
+									"",
+									"//         // Проверка объекта author внутри comments",
+									"//         pm.expect(comment).to.have.property(\"author\").that.is.an(\"object\");",
+									"//         pm.expect(comment.author).to.have.property(\"userName\").that.is.a(\"string\");",
+									"//         pm.expect(comment.author).to.have.property(\"userImage\").that.is.an(\"object\");",
+									"//         pm.expect(comment.author.userImage).to.have.property(\"imagePath\").that.is.a(\"string\");",
+									"//     }",
+									"// });"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/blog/kurtki",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"kurtki"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bad request slug",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// pm.test(\"response is ok\",  ()=>{",
+									"//     pm.response.to.have.status(200)",
+									"// })",
+									"",
+									"// pm.test(\"Response contains required fields with correct types\", function () {",
+									"//     let jsonData = pm.response.json();",
+									"",
+									"//     // Проверка верхнего уровня",
+									"//     pm.expect(jsonData).to.have.property(\"id\").that.is.a(\"number\");",
+									"//     pm.expect(jsonData).to.have.property(\"title\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"description\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"h1\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"content\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"isPublished\").that.is.a(\"boolean\");",
+									"//     pm.expect(jsonData).to.have.property(\"publishedAt\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"link\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData).to.have.property(\"likesCounter\").that.is.a(\"number\");",
+									"//     pm.expect(jsonData).to.have.property(\"category\").that.is.a(\"string\");",
+									"",
+									"//     // Проверка формата даты (ISO 8601 с возможными вариациями)",
+									"//     const iso8601Regex = /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?(Z|[+-]\\d{2}:\\d{2})?$/;",
+									"//     pm.expect(jsonData.publishedAt).to.match(iso8601Regex);",
+									"",
+									"//     // Проверка массива tags",
+									"//     pm.expect(jsonData).to.have.property(\"tags\").that.is.an(\"array\");",
+									"//     if (jsonData.tags.length > 0) {",
+									"//         pm.expect(jsonData.tags[0]).to.be.a(\"string\");",
+									"//     }",
+									"",
+									"//     // Проверка mainImage",
+									"//     pm.expect(jsonData).to.have.property(\"mainImage\").that.is.an(\"object\");",
+									"//     pm.expect(jsonData.mainImage).to.have.property(\"path\").that.is.a(\"string\");",
+									"//     pm.expect(jsonData.mainImage).to.have.property(\"titleAlt\").that.is.a(\"string\");",
+									"",
+									"//     // Проверка массива comments",
+									"//     pm.expect(jsonData).to.have.property(\"comments\").that.is.an(\"array\");",
+									"//     if (jsonData.comments.length > 0) {",
+									"//         let comment = jsonData.comments[0];",
+									"//         pm.expect(comment).to.have.property(\"text\").that.is.a(\"string\");",
+									"//         pm.expect(comment).to.have.property(\"createdAt\").that.is.a(\"string\");",
+									"//         pm.expect(comment.createdAt).to.match(iso8601Regex); // Проверка формата даты",
+									"",
+									"//         // Проверка объекта author внутри comments",
+									"//         pm.expect(comment).to.have.property(\"author\").that.is.an(\"object\");",
+									"//         pm.expect(comment.author).to.have.property(\"userName\").that.is.a(\"string\");",
+									"//         pm.expect(comment.author).to.have.property(\"userImage\").that.is.an(\"object\");",
+									"//         pm.expect(comment.author.userImage).to.have.property(\"imagePath\").that.is.a(\"string\");",
+									"//     }",
+									"// });"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/blog/11213",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"11213"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
