@@ -10605,6 +10605,496 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Refresh tokens",
+			"item": [
+				{
+					"name": "Refresh tokens_no cookies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Пустой, либо неверный refresh токен\");",
+									"});",
+									"",
+									"",
+									"",
+									"const allCookies = pm.cookies.toObject();",
+									"",
+									"// Проверяем наличие access_token и refresh_token",
+									"if (!allCookies.access_token) {",
+									"    console.log(\"Warning: access_token cookie is not found.\");",
+									"}",
+									"",
+									"if (!allCookies.refresh_token) {",
+									"    console.log(\"Warning: refresh_token cookie is not found.\");",
+									"}",
+									"",
+									"// Выводим все куки для отладки",
+									"console.log(\"All Cookies:\", allCookies);",
+									"",
+									"pm.test(\"Check for access_token cookie_not found\", () => {",
+									"    pm.expect(pm.cookies.has(\"access_token\")).not.to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Check for refresh_token cookie_not found\", () => {",
+									"    pm.expect(pm.cookies.has(\"refresh_token\")).not.to.be.true;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// // const domainUrl = \"http://dev.relocatein.eu:90\"; // Укажите нужный домен",
+									"// // pm.cookies.jar().clear(domainUrl);",
+									"// const domainUrl = \"http://dev.relocatein.eu:90\"; // Укажите ваш домен",
+									"// const cookies = pm.cookies.jar().getAll(domainUrl);",
+									"",
+									"// console.log(\"Cookies for domain:\", cookies);",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh tokens_outdated or incorrect cookies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response message is valid\", function() {",
+									"    pm.expect(pm.response.json().message).to.eql(\"Неверный access токен\")",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const accessToken = pm.collectionVariables.get(\"access_token\");",
+									"const refreshToken = pm.collectionVariables.get(\"refresh_token\");",
+									"",
+									"pm.request.headers.add({",
+									"    key: \"Cookie\",",
+									"    value: `access_token=${accessToken}; refresh_token=${refreshToken}`",
+									"});",
+									"",
+									"",
+									"",
+									"// // Подменяем куки перед запросом",
+									"// const apiUrl =  \"http://dev.relocatein.eu:90/api/v1/auth/refresh\";",
+									"",
+									"// pm.cookies.jar().set({",
+									"//     url: apiUrl, // URL, связанный с куками",
+									"//     name: \"refresh_token\", // Имя куки",
+									"//     value: \"invalid-token\", // Укажите недействительный токен",
+									"//     path: \"/\", // Путь для куки",
+									"// });",
+									"",
+									"// // При необходимости также подмените accessToken",
+									"// pm.cookies.jar().set({",
+									"//     url: apiUrl,",
+									"//     name: \"access_token\",",
+									"//     value: \"invalid-access-token\",",
+									"//     path: \"/\",",
+									"// });"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableCookies": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token=ey089AiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NDE2ODczMzAsImV4cCI6MTc0MTY4NzkzMCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImVtYWlsIjoiYWRrbdhbisyQGdtYWlsLmNvbSJ9.kD1I-zRPXzNs03b-qdtW-aBqg-rULPwDxOvwR8vI5PL5vbzFnK6CNUnNwZYDEGwM6pHfO2lS5EHmrgLscDf7sWZVfcXaPMOt-M5pNOfMaujXqDuziPLDQYbV2Gmgfv0qaLYr2eWhnkJ5Nuss2i-zhStzn-HFl19IkGH75jz4960Ay8l2Y_TXF0-3kkAWV4ndy2RoiB-qHXOkQDNSqo79pRSX6z8N9xHO_dvjRr8FAD220QoxNGVz0gbWqSVCJAsLOHojfHFWefx0fNvw5w9wPUnzRgqINi3evZahM1BkWqckQ4mb0_bb96zd_84FY3CA59aIdUrpmZNXS8CRcMxGjQ; refresh_token=c739fa2535116c7e25a26a2d6ca2c2cc2c48aac8cd62840899687f25fa7d085ce5311v4e0b42183f00597d60e6d09cee6ddf33118da0ee4f1d3a1c62232513d2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login_get tokens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status is 204\", () => {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									"// Получаем токены из куки",
+									"let access = pm.cookies.get(\"access_token\");",
+									"let refresh = pm.cookies.get(\"refresh_token\");",
+									"",
+									"// Сохраняем токены в environment-переменные",
+									"pm.environment.set(\"old_access_token\", access);",
+									"pm.environment.set(\"old_refresh_token\", refresh);",
+									"",
+									"console.log(\"Saved old access_token:\", access);",
+									"console.log(\"Saved old refresh_token:\", refresh);",
+									"",
+									"// Переход к следующему запросу",
+									"postman.setNextRequest(\"Refresh tokens\");",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"adkogan@gmail.com\",\n  \"password\": \"Qwerty123$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh tokens_positive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									"pm.test(\"Response message check\", function () {",
+									"    var jsonData = pm.response.text();",
+									"    pm.expect(jsonData).to.eql(\"Обновление access и refresh токенов\");",
+									"});",
+									"",
+									"let newAccess = pm.cookies.get(\"access_token\");",
+									"let newRefresh = pm.cookies.get(\"refresh_token\");",
+									"",
+									"let oldAccess = pm.environment.get(\"old_access_token\");",
+									"let oldRefresh = pm.environment.get(\"old_refresh_token\");",
+									"",
+									"console.log(\"New access_token:\", newAccess);",
+									"console.log(\"New refresh_token:\", newRefresh);",
+									"",
+									"pm.test(\"Access token обновлён\", function () {",
+									"    pm.expect(newAccess).to.not.eql(oldAccess);",
+									"});",
+									"",
+									"pm.test(\"Refresh token обновлён\", function () {",
+									"    pm.expect(newRefresh).to.not.eql(oldRefresh);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh tokens_security flags",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"// Retrieve all headers as an array of objects",
+									"const allHeaders = pm.response.headers.all();",
+									"",
+									"// Filter headers to get only those with the key 'Set-Cookie'",
+									"const setCookieHeaders = allHeaders.filter(header => header.key.toLowerCase() === 'set-cookie');",
+									"",
+									"// Map to store cookies and their attributes",
+									"const cookieMap = {};",
+									"",
+									"// Function to parse a Set-Cookie string into a cookie object",
+									"function parseCookie(cookieString) {",
+									"    const parts = cookieString.split(';').map(part => part.trim());",
+									"    const [nameValue, ...attributes] = parts;",
+									"    const [name, value] = nameValue.split('=');",
+									"    const cookie = {",
+									"        name: name,",
+									"        value: value,",
+									"        flags: {},",
+									"    };",
+									"",
+									"    // Parse attributes into flags",
+									"    attributes.forEach(attr => {",
+									"        if (attr.toLowerCase() === 'httponly') cookie.flags.HttpOnly = true;",
+									"        if (attr.toLowerCase() === 'secure') cookie.flags.Secure = true;",
+									"        if (attr.toLowerCase().startsWith('samesite=')) {",
+									"            cookie.flags.SameSite = attr.split('=')[1];",
+									"        }",
+									"        if (attr.toLowerCase().startsWith('path=')) {",
+									"            cookie.flags.Path = attr.split('=')[1];",
+									"        }",
+									"        if (attr.toLowerCase().startsWith('expires=')) {",
+									"            cookie.flags.Expires = attr.split('=')[1];",
+									"        }",
+									"        if (attr.toLowerCase().startsWith('max-age=')) {",
+									"            cookie.flags['Max-Age'] = attr.split('=')[1];",
+									"        }",
+									"    });",
+									"",
+									"    return cookie;",
+									"}",
+									"",
+									"// Parse each Set-Cookie header and store it in the cookie map",
+									"setCookieHeaders.forEach(header => {",
+									"    const cookie = parseCookie(header.value);",
+									"    cookieMap[cookie.name] = cookie;",
+									"});",
+									"",
+									"// Log parsed cookies for debugging",
+									"console.log('Parsed Cookies:', cookieMap);",
+									"",
+									"// Check for specific tokens (access_token and refresh_token)",
+									"['access_token', 'refresh_token'].forEach(tokenName => {",
+									"    const tokenCookie = cookieMap[tokenName];",
+									"",
+									"    pm.test(`Cookie \"${tokenName}\" exists`, () => {",
+									"        pm.expect(tokenCookie).to.exist;",
+									"    });",
+									"",
+									"    if (tokenCookie) {",
+									"        pm.test(`Cookie \"${tokenName}\" has HttpOnly flag`, () => {",
+									"            pm.expect(tokenCookie.flags.HttpOnly).to.be.true;",
+									"        });",
+									"",
+									"        pm.test(`Cookie \"${tokenName}\" has Secure flag`, () => {",
+									"            pm.expect(tokenCookie.flags.Secure).to.be.true;",
+									"        });",
+									"",
+									"        pm.test('Cookie \"${tokenName}\" has SameSite=Lax', () => {",
+									"            pm.expect(['lax']).to.include(tokenCookie.flags.SameSite);",
+									"        });",
+									"    }",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"// // Removed redundant tests",
+									"// pm.test(\"access_token кука найдена\", () => {",
+									"//     pm.expect(setCookieHeaders).to.include(\"access_token=\");",
+									"// });",
+									"",
+									"// pm.test(\"refresh_token кука найдена\", () => {",
+									"//     pm.expect(setCookieHeaders).to.include(\"refresh_token=\");",
+									"// });",
+									"",
+									"// // Тесты для access_token",
+									"// pm.test(\"access_token имеет флаг SameSite=Lax\", () => {",
+									"//     let accessTokenHeader = setCookieHeaders.split('\\n').find(h => h.includes(\"access_token=\"));",
+									"//     if (accessTokenHeader) {",
+									"//         pm.expect(accessTokenHeader.toLowerCase()).to.include(\"samesite=lax\");",
+									"//     } else {",
+									"//         pm.expect.fail(\"No access_token header found\");",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"access_token имеет флаг HttpOnly\", () => {",
+									"//     let accessTokenHeader = setCookieHeaders.split('\\n').find(h => h.includes(\"access_token=\"));",
+									"//     if (accessTokenHeader) {",
+									"//         pm.expect(accessTokenHeader.toLowerCase()).to.include(\"httponly\");",
+									"//     } else {",
+									"//         pm.expect.fail(\"No access_token header found\");",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"access_token имеет флаг Secure\", () => {",
+									"//     let accessTokenHeader = setCookieHeaders.split('\\n').find(h => h.includes(\"access_token=\"));",
+									"//     if (accessTokenHeader) {",
+									"//         pm.expect(accessTokenHeader.toLowerCase()).to.include(\"secure\");",
+									"//     } else {",
+									"//         pm.expect.fail(\"No access_token header found\");",
+									"//     }",
+									"// });",
+									"",
+									"// // Тесты для refresh_token",
+									"// pm.test(\"refresh_token имеет флаг SameSite=Lax\", () => {",
+									"//     let refreshTokenHeader = setCookieHeaders.split('\\n').find(h => h.includes(\"refresh_token=\"));",
+									"//     if (refreshTokenHeader) {",
+									"//         pm.expect(refreshTokenHeader.toLowerCase()).to.include(\"samesite=lax\");",
+									"//     } else {",
+									"//         pm.expect.fail(\"No refresh_token header found\");",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"refresh_token имеет флаг HttpOnly\", () => {",
+									"//     let refreshTokenHeader = setCookieHeaders.split('\\n').find(h => h.includes(\"refresh_token=\"));",
+									"//     if (refreshTokenHeader) {",
+									"//         pm.expect(refreshTokenHeader.toLowerCase()).to.include(\"httponly\");",
+									"//     } else {",
+									"//         pm.expect.fail(\"No refresh_token header found\");",
+									"//     }",
+									"// });",
+									"",
+									"// pm.test(\"refresh_token имеет флаг Secure\", () => {",
+									"//     let refreshTokenHeader = setCookieHeaders.split('\\n').find(h => h.includes(\"refresh_token=\"));",
+									"//     if (refreshTokenHeader) {",
+									"//         pm.expect(refreshTokenHeader.toLowerCase()).to.include(\"secure\");",
+									"//     } else {",
+									"//         pm.expect.fail(\"No refresh_token header found\");",
+									"//     }",
+									"// });",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Тесты для проверки механизма обновления токенов.\n\nВажно:\n\n1. Предварительно проверить или удалить cookie с токенами для теста №1.\n    \n2. Для проверки №2 в cookie внесены просроченные токены. Перед запуском проверки важно удостовериться, что новые токены не попали в список хедеров."
 		}
 	],
 	"event": [
