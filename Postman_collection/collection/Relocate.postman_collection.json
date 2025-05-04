@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "2b713d74-6637-4e46-b388-37ab6cdf4d94",
+		"_postman_id": "c8dd81f3-1c1b-4e02-9885-629ed396f6b9",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "5251561"
+		"_exporter_id": "17686990"
 	},
 	"item": [
 		{
@@ -11095,6 +11095,577 @@
 				}
 			],
 			"description": "Тесты для проверки механизма обновления токенов.\n\nВажно:\n\n1. Предварительно проверить или удалить cookie с токенами для теста №1.\n    \n2. Для проверки №2 в cookie внесены просроченные токены. Перед запуском проверки важно удостовериться, что новые токены не попали в список хедеров."
+		},
+		{
+			"name": "adding a like",
+			"item": [
+				{
+					"name": "like successfully added",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 200\r",
+									"pm.test(\"Статус ответа - 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Проверка сообщения о добавлении лайка\r",
+									"pm.test(\"Сообщение о добавлении лайка\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"\r",
+									"    // Проверяем, что сообщение соответствует ожидаемому\r",
+									"    pm.expect(responseJson.message).to.eql(\"Лайк добавлен\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blogid\": 1,\r\n  \"like\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.relocatein.eu/api/v1/blog/like",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"relocatein",
+								"eu"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete like",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 200\r",
+									"pm.test(\"Статус ответа - 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Проверка, что тело ответа содержит сообщение об удалении лайка\r",
+									"pm.test(\"Сообщение о снятии лайка\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"    pm.expect(responseJson.message).to.eql(\"Лайк удален\");\r",
+									"\r",
+									"    // Проверяем значение поля like, если оно возвращается\r",
+									"    if (responseJson.hasOwnProperty(\"like\")) {\r",
+									"        pm.expect(responseJson.like).to.eql(false); // Лайк должен быть снят\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blog_id\": 1,\r\n  \"like\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.relocatein.eu/api/v1/blog/like",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"relocatein",
+								"eu"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checking for empty json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 400\r",
+									"pm.test(\"Статус ответа - 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Проверка сообщения об ошибке\r",
+									"pm.test(\"Сообщение об отсутствии поля blogId\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"\r",
+									"    // Проверяем, что сообщение соответствует ожидаемому\r",
+									"    pm.expect(responseJson.message).to.eql(\"blogId не должен быть пустым\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"like\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.relocatein.eu/api/v1/blog/like",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"relocatein",
+								"eu"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checking data validation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 400\r",
+									"pm.test(\"Статус ответа - 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Проверка сообщения о невалидном JSON\r",
+									"pm.test(\"Сообщение о невалидном JSON\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"\r",
+									"    // Проверяем, что сообщение соответствует ожидаемому\r",
+									"    pm.expect(responseJson.message).to.eql(\"Невалидный json в теле запроса\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blog_id\": 1,\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.relocatein.eu/api/v1/blog/like",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"relocatein",
+								"eu"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "incorrect blog_id format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 400\r",
+									"pm.test(\"Статус ответа - 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Проверка сообщения о невалидном JSON\r",
+									"pm.test(\"Сообщение о некорректном формате blogId\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"\r",
+									"    // Приводим сообщение к нижнему регистру и сравниваем\r",
+									"    const actualMessage = responseJson.message.toLowerCase();\r",
+									"    const expectedMessage = \"невалидный json в теле запроса\".toLowerCase();\r",
+									"\r",
+									"    pm.expect(actualMessage).to.eql(expectedMessage);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blog_id\": string,\r\n  \"like\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/blog/like",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "incorrect like format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 400\r",
+									"pm.test(\"Статус ответа - 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Проверка сообщения о некорректном формате поля like\r",
+									"pm.test(\"Сообщение о некорректном формате like\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"\r",
+									"    // Проверяем, что сообщение соответствует ожидаемому\r",
+									"    pm.expect(responseJson.message).to.eql(\"like должен быть bool\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blogid\": 1,\r\n  \"like\": \"1222\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/blog/like",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checking for a missing blog",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 404\r",
+									"pm.test(\"Статус ответа - 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"// Проверка сообщения о ненайденном блоге\r",
+									"pm.test(\"Сообщение о ненайденном блоге\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"\r",
+									"    // Проверяем, что сообщение соответствует ожидаемому\r",
+									"    pm.expect(responseJson.message).to.eql(\"Блог не найден\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blogid\": 9999,  //  блог не найден\r\n  \"like\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.relocatein.eu/api/v1/blog/like",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"relocatein",
+								"eu"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check for invalid json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 400\r",
+									"pm.test(\"Статус ответа - 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Проверка сообщения о невалидном JSON\r",
+									"pm.test(\"Сообщение о невалидном JSON\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"\r",
+									"    // Проверяем, что сообщение соответствует ожидаемому\r",
+									"    pm.expect(responseJson.message).to.eql(\"Невалидный json в теле запроса\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"blog_id\": 1\r\n  \"like\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.relocatein.eu/api/v1/blog/like",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"relocatein",
+								"eu"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checking for empty json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Проверка, что статус ответа равен 400\r",
+									"pm.test(\"Статус ответа - 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Проверка сообщения о пустом поле blogId\r",
+									"pm.test(\"Сообщение о пустом blogId\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"\r",
+									"    // Проверяем наличие поля message\r",
+									"    pm.expect(responseJson).to.have.property(\"message\");\r",
+									"\r",
+									"    // Проверяем, что сообщение соответствует ожидаемому\r",
+									"    pm.expect(responseJson.message).to.eql(\"blogId не должен быть пустым\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dev.relocatein.eu/api/v1/blog/like",
+							"protocol": "https",
+							"host": [
+								"dev",
+								"relocatein",
+								"eu"
+							],
+							"path": [
+								"api",
+								"v1",
+								"blog",
+								"like"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
