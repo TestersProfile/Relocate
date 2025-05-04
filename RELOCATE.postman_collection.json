@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "e3d5d7b6-edbf-46d9-be96-8fa494b34b25",
+		"name": "RELOCATE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "17686990"
+	},
+	"item": [
+		{
+			"name": "Проверка успешного добавление лайка",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"blog_id\": 1,\r\n  \"like\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		},
+		{
+			"name": "отсутствует обязательное поле blog_id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \r\n  \"like\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		},
+		{
+			"name": "отсутствует обязательное поле like",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"blog_id\": 1,\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		},
+		{
+			"name": "Некорректный формат blog_id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"blog_id\": \"string\",\r\n  \"like\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		},
+		{
+			"name": "Некорректный формат like",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"blog_id\": 1,\r\n  \"like\": 123\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка отсутствующего блога",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"blog_id\": 9999,  //  блог не найден\r\n  \"like\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка невалидного json",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"blog_id\": 1\r\n  \"like\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка пустово json",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		},
+		{
+			"name": "Удаление like",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"blog_id\": 1,\r\n  \"like\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://134.17.16.177:90/api/v1/blog/like"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "relocate",
+			"value": "http://134.17.16.177:90",
+			"type": "string"
+		}
+	]
+}
