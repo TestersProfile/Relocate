@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "c8dd81f3-1c1b-4e02-9885-629ed396f6b9",
+		"_postman_id": "cd3a08cf-da54-4f48-a1a2-3fbdbf09b3d0",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "17686990"
+		"_exporter_id": "5251561"
 	},
 	"item": [
 		{
@@ -11666,6 +11666,1477 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Image upload",
+			"item": [
+				{
+					"name": "not authorised",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Access токен не найден\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1f025299-8dde-4090-bd53-3af531ef80ed"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login_get tokens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response is ok\",  ()=>{",
+									"    pm.response.to.have.status(204)",
+									"})",
+									"",
+									"pm.test(\"fetch access_token\", () => {",
+									"    const access_token = pm.cookies.get(\"access_token\");",
+									"    pm.environment.set(\"access_token\", access_token);",
+									"});",
+									"",
+									"pm.test(\"fetch refresh_token\", () => {",
+									"    const refresh_token = pm.cookies.get(\"refresh_token\");",
+									"    pm.environment.set(\"refresh_token\", refresh_token);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"adkogan@gmail.com\",\n  \"password\": \"Qwerty123$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "correct image jpg",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Изображение загружено\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/adkogan/Pictures/Images for Relocate/image1_dog.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Путь к изображению получен\", function () {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"imagePath\");",
+									"    pm.environment.set(\"uploadedImagePath\", json.imagePath); // сохраняем для следующего шага",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "compare imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ содержит изображение\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/^image\\//);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/{{uploadedImagePath}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{uploadedImagePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "correct image png",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Изображение загружено\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/adkogan/Pictures/Images for Relocate/image2_cat.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Путь к изображению получен\", function () {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"imagePath\");",
+									"    pm.environment.set(\"uploadedImagePath\", json.imagePath); // сохраняем для следующего шага",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "compare imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ содержит изображение\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/^image\\//);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/{{uploadedImagePath}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{uploadedImagePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "correct image jpeg",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Изображение загружено\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/adkogan/Pictures/Images for Relocate/image3_owl.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Путь к изображению получен\", function () {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"imagePath\");",
+									"    pm.environment.set(\"uploadedImagePath\", json.imagePath); // сохраняем для следующего шага",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "compare imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ содержит изображение\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/^image\\//);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/{{uploadedImagePath}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{uploadedImagePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "correct image almost max size",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Изображение загружено\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1f025324-2eeb-4ca0-a0a8-0ca8011610a8"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Путь к изображению получен\", function () {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"imagePath\");",
+									"    pm.environment.set(\"uploadedImagePath\", json.imagePath); // сохраняем для следующего шага",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "compare imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ содержит изображение\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/^image\\//);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/{{uploadedImagePath}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{uploadedImagePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image more than 1MB",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Файл слишком большой (1.15 MB). Максимально допустимый размер 1 MB.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1f025327-c818-41a0-8c9d-67996d6efc8c"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image svg",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"MIME-тип файла недопустим (\\\"application/pdf\\\"). Допустимы MIME-типы файлов \\\"image/jpeg\\\", \\\"image/png\\\", \\\"image/jpg\\\".\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/adkogan/Pictures/Images for Relocate/image svg.svg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "not an image",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"MIME-тип файла недопустим (\\\"application/pdf\\\"). Допустимы MIME-типы файлов \\\"image/jpeg\\\", \\\"image/png\\\", \\\"image/jpg\\\".\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1f027958-e0ea-4460-a2cf-afa5f780c828"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image with zero size",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Пустые файлы не разрешены.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/adkogan/Pictures/Images for Relocate/empty.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "no file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"image не должен быть пустым\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image cyr name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Изображение загружено\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1f025299-8dde-4090-bd53-3af531ef80ed"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Путь к изображению получен\", function () {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"imagePath\");",
+									"    pm.environment.set(\"uploadedImagePath\", json.imagePath); // сохраняем для следующего шага",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "compare imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ содержит изображение\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/^image\\//);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/{{uploadedImagePath}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{uploadedImagePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload two or more images",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Изображение загружено\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [
+										"postman-cloud:///1f025299-8dde-4090-bd53-3af531ef80ed",
+										"postman-cloud:///1f0252e6-2da9-41a0-93ce-14f85af909b9",
+										"postman-cloud:///1f02531a-4001-4760-861b-683559eb046c"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get imagePath Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Путь к изображению получен\", function () {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"imagePath\");",
+									"    pm.environment.set(\"uploadedImagePath\", json.imagePath); // сохраняем для следующего шага",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "compare imagePath",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ содержит изображение\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.match(/^image\\//);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/{{uploadedImagePath}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{uploadedImagePath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rewriting_upload image1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Изображение загружено\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/adkogan/Pictures/Images for Relocate/image1_dog.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rewriting_get imagePath 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// pm.test(\"Путь к изображению получен\", function () {",
+									"//     const json = pm.response.json();",
+									"//     pm.expect(json).to.have.property(\"imagePath\");",
+									"//     pm.environment.set(\"uploadedImagePath\", json.imagePath); // сохраняем для следующего шага",
+									"// });",
+									"",
+									"const path1 = pm.response.json().imagePath;",
+									"pm.environment.set(\"imagePath_1\", path1);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rewriting_upload image2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response message check\", function () {",
+									"var jsonData = pm.response.json();",
+									"pm.expect(jsonData. message).to.eql(\"Изображение загружено\");",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1f027984-fb1a-45c0-bf1c-b795db12c78f"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rewriting_get imagePath2 and compare Paths",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"const path2 = pm.response.json().imagePath;",
+									"pm.environment.set(\"imagePath_2\", path2);",
+									"",
+									"",
+									"pm.test(\"Путь изменился после повторной загрузки\", () => {",
+									"    const path1 = pm.environment.get(\"imagePath_1\");",
+									"    pm.expect(path2).not.eql(path1);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/user/image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rewriting_check first image is not available by its path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Старое изображение больше не доступно\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "access_token={{access_token}};refresh_token={{refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/{{imagePath_1}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"{{imagePath_1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "**Проверки для тестирования загрузки изображения\\\\аватара в ЛК:**\n\n1\\. Проверка для неавторизованного пользователя:\n\n- Первая проверка — для неавторизованного пользователя. Убедитесь, что метод не разрешает загрузку изображения без авторизации.\n    \n\n2\\. Хранение файлов-изображений:\n\n- Все файлы-изображения для тестирования метода /api/v1/user/image/upload находятся в папке \"images\" в репозитории: [GitHub](https://github.com/TestersProfile/Relocate).\n    \n- Шаг 1: Скачайте файлы из папки \"images\".\n    \n- Шаг 2: Поместите их в вашу локальную Postman Working Directory.\n    \n\n3\\. Тестирование загрузки изображения:\n\n- Метод POST /api/v1/user/image/upload возвращает только сообщение о статусе загрузки, но не сам файл.\n    \n    Чтобы удостовериться, что изображение действительно загрузилось:\n    \n    1. Используем метод GET /api/v1/user/image.\n        \n    2. Этот метод возвращает путь к загруженному изображению.\n        \n    3. Отправив повторный запрос GET /api/v1/user/image, можно сравнить пути и убедиться, что они ведут к правильному изображению."
 		}
 	],
 	"event": [
