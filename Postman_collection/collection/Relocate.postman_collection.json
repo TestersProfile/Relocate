@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4fc376bc-eb3f-4e35-b894-fff5c5d05a85",
+		"_postman_id": "a7d44e03-a710-4ace-91d5-88ec2e4dd812",
 		"name": "Relocate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "5251561"
+		"_exporter_id": "36636605"
 	},
 	"item": [
 		{
@@ -995,6 +995,107 @@
 				}
 			],
 			"description": "Проверки на вход зарегистрированного пользователя через email, password.\n\n204 Вход пользователя через email, пароль  \n400 1) Невалидный json в теле запроса  \n400 2) email/password должен быть string  \n400 3) email/password не должен быть пустым  \n401 Неверный пароль или email"
+		},
+		{
+			"name": "Logout",
+			"item": [
+				{
+					"name": "Successful exit with valid tokens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"No Content\");",
+									"});",
+									"pm.test(\"Header is present in the response\", function () {",
+									"    pm.response.to.have.header(\"Server\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'POST' \\\n  'http://dev.relocatein.eu:90/api/v1/auth/logout' \\\n  -H 'accept: */*' \\\n  -d ''"
+					},
+					"response": []
+				},
+				{
+					"name": "Checking re-exit ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"Unauthorized\");",
+									"});",
+									"pm.test(\"Header is present in the response\", function () {",
+									"    pm.response.to.have.header(\"Server\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Blog",
@@ -3361,6 +3462,1460 @@
 				}
 			],
 			"description": "Создание комментария для определенной статьи блога\n\n200 Успешное создание комментария для определенной статьи блога  \n400 Невалидный json в теле запроса  \n400 blogId не должен быть пустым  \n400 blogId должен быть int  \n400 blogId должен быть положительным числом  \n400 text не должен быть пустым  \n400 text должен быть string  \n404 Блог не найден\n\n\\*text - min and max lenght - under discussion\n\n\\*userName min and max lenght - under discussion\n\n\\*userName being required or not required -under discussion"
+		},
+		{
+			"name": "User Country Comment",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Create a feedback by an unregistered user.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Unauthorized\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a country feedback.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with the value \"text\" 1 character.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\": \"n\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with a value of \"text\" 1 space.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\": \" \"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with a \"text\" value of 2500 characters with no space.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\": \"Признакиджуна:невсостояниирешатьзадачисамостоятельно,неумеетвовремяостановиться,оценитьситуациюипопроситьпомощьипоэтомунуждаетсявпостоянномконтроле.Частоджуннеумеетформулироватьсвоимыслииобладаетслабымикоммуникативныминавыками,плохознаетAPIсвоейязыковойплатформыиплохоумеетпользоватьсяинструментамиразработки.Миддлболеесамостоятелен,можетресёрчить,делатьнесложныетаски.Онболееактивновзаимодействуетскомандой,умеетобращатьсязапомощью,умеетостановиться,когдаужеявно«заносит»/«затягивает».Сформулированиемикоммуникациейлучше,чемуджуна,оннеплохоориентируетсявAPIязыковойплатформыиосваиваетинструментыразработки.Приопределённыхусловияхужеможетначинатьменторитьджуновилибратьстажёров.Сеньорыучатсяделегироватьболеескучныезадачисотрудникамнизшегоранга(джуны/миддлы).Унихужедолжныбытьнеплохиекоммуникативныенавыки(хотянаделе,ксожалению,онибываютнеукаждогосеньора).Этотспециалистужеосвоилинструментыразработки,периодическипосматриваетвсторонуболеесовершенныхинструментовдлялучшейпроизводительности,хорошознаетAPIсвоейязыковойплатформыирасширяеткругозорвобластиархитектурыиOps-практик.Признакиджуна:невсостояниирешатьзадачисамостоятельно,неумеетвовремяостановиться,оценитьситуациюипопроситьпомощьипоэтомунуждаетсявпостоянномконтроле.Частоджуннеумеетформулироватьсвоимыслииобладаетслабымикоммуникативныминавыками,плохознаетAPIсвоейязыковойплатформыиплохоумеетпользоватьсяинструментамиразработки.Миддлболеесамостоятелен,можетресёрчить,делатьнесложныетаски.Онболееактивновзаимодействуетскомандой,умеетобращатьсязапомощью,умеетостановиться,когдаужеявно«заносит»/«затягивает».Сформулированиемикоммуникациейлучше,чемуджуна,оннеплохоориентируетсявAPIязыковойплатформыиосваиваетинструментыразработки.Приопределённыхусловияхужеможетначинатьменторитьджуновилибратьстажёров.Сеньорыучатсяделегироватьболеескучныезадачисотрудникамнизшегоранга(джуны/миддлы).Унихужедолжныбытьнеплохиекоммуникативныенавыки(хотянаделе,ксожалению,онибываютнеукаждогосеньора).Этотспециалистужеосвоилинструментыразработки,периодическипосматриваетвсторонуболеесовершенныхинструментовдлялучшейпроизводительности,хорошознаетAPIсвоейязыковойплатформыирасширяеткругозорвобластиархитектурыиOps-практик.Сеньорыучатсяделегироватьболеескучныезадачисотрудникамнизшегоранга(джуны/миддлы).Унихужедолжныбытьнеплохиекоммуникативныенавыки(хотянаделе,ксожалению,онибываютнеукаждогосеньора).Этотспециалистужеосвоилинструментыразработки,периодическипосматриваетвсторонуболеесовершенныхинструментовдлялучшейпроизводительности,хорошознаетAPIсвоейязыковойплатформыир.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback  with missing \"UserName\" parameter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"text\": \"Хочу переехать!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Create a feedback with an empty value for the \"text\" key.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with an empty \"countryId\" value.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": ,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with \"countryId\" value equal to 0.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 0,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with a non-existent \"countryId\" value.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Not Found\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 555,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback where the value of  \"countryId\" is a negative number.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": -5,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with an invalid data type for \"countryId\".",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": true,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with a missing countryId field.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with on SQL injection of the key \"countryId\".",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\":'; SELECT * FROM users LIMIT 5,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with an invalid key data type \"text\".",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\":true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with a \"text\" value of 2501 characters with no space.",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\": \"Современные технологии кардинально изменили нашу жизнь, предоставив невероятные возможности для коммуникации, работы и развлечений. Интернет стал неотъемлемой частью повседневности, позволяя людям общаться на расстоянии, получать информацию мгновенно и даже управлять домашними устройствами удалённо. Однако вместе с удобством приходят и новые вызовы: киберпреступность, зависимость от социальных сетей и вопросы конфиденциальности данных. Искусственный интеллект, например, активно развивается и уже сейчас используется в медицине, финансах и образовании. Машинное обучение помогает анализировать большие объёмы данных, предсказывать тенденции и даже диагностировать заболевания на ранних стадиях. Но насколько этично доверять алгоритмам принятие решений? Этот вопрос остаётся открытым и вызывает горячие дискуссии среди экспертов. Климатические изменения — ещё одна глобальная проблема, требующая немедленных действий. Участившиеся природные катаклизмы, таяние ледников и повышение уровня моря угрожают экосистемам и человечеству. Многие страны переходят на возобновляемую энергию, но достаточно ли этих мер? Учёные призывают к более радикальным решениям, включая сокращение выбросов и внедрение «зелёных» технологий в промышленность. В сфере образования также происходят значительные перемены. Онлайн-курсы, виртуальные классы и цифровые учебники делают знания доступнее, но полностью ли они заменят традиционное обучение? Живое взаимодействие с преподавателями и одногруппниками по-прежнему остаётся важным элементом образовательного процесса. Культура и искусство тоже адаптируются к цифровой эпохе. Виртуальные выставки, NFT-коллекции и стриминговые платформы открывают новые способы творческого самовыражения и монетизации. Однако это ставит под вопрос сохранение аутентичности искусства и авторских прав в цифровом пространстве. Здоровый образ жизни становится трендом: люди всё чаще отказываются от вредных привычек, занимаются спортом и следят за питанием. Фитнес-трекеры и мобильные приложения помогают контролировать физическую активность, но важно не забывать о балансе и психическом здоровье. В мире бизнеса на первый план выходят гибкость и инновации. Стартапы бросают вызов корпорациям, предлагая уникальные решения, а удалённая работа стала нормой для миллионов сотрудников. Однако такой формат требует пересмотра системы мотивации и корпоративной культуры. Политические процессы также трансформируются под влиянием технологий. Соцсети стали инструментом пропаганды и манипуляций, а блокчейн \"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with a \"text\" value  SQL injection",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\":\"'; SELECT * FROM users LIMIT 5\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback with missing \"text\" parameter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": \"Наташа\"\n  \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback  with an invalid data type \"userName\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\":true,\n  \"text\": \"Хочу переехать!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback  with an  \"userName\" value SQL injection",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\":'; SELECT * FROM users LIMIT 5,\n  \"text\": \"Хочу переехать!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback  with an empty \"userName\" value ",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"countryId\": 43,\n  \"userName\": ,\n  \"text\": \"Хочу переехать!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback  with an empty JSON",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a feedback   with non-JSON",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"Bad Request\");",
+											"});",
+											"pm.test(\"Header is present in the response\", function () {",
+											"    pm.response.to.have.header(\"Server\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "  \"countryId\": 43,\n  \"userName\": \"Наташа\",\n  \"text\": \"Хочу переехать!\"",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/country/comment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"country",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		},
 		{
 			"name": "Reset-password",
@@ -9597,6 +11152,1026 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "User Favorite Blog",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Add a blog without user authentication",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(401);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Access токен не найден\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Unauthorized\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add a blog to Favorites",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Блог добавлен в избранное\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								},
+								"description": "Generated from cURL: curl -X 'POST' \\\n  'http://dev.relocatein.eu:90/api/v1/user/blog' \\\n  -H 'accept: */*' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"blogId\": 1,\n  \"isFavorite\": true\n}'"
+							},
+							"response": []
+						},
+						{
+							"name": "Сheck the blog is favorite",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								},
+								"description": "Generated from cURL: curl -X 'POST' \\\n  'http://dev.relocatein.eu:90/api/v1/user/blog' \\\n  -H 'accept: */*' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n  \"blogId\": 1,\n  \"isFavorite\": true\n}'"
+							},
+							"response": []
+						},
+						{
+							"name": "Add a blog to Favorites again",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Блог добавлен в избранное\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a blog from Favorites",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Блог удален из избранного\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Сheck the blog is not favorite",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Status code name has string\", function () {",
+											"    pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a blog from Favorites again",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Блог удален из избранного\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add an additional parameter",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Блог добавлен в избранное\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"OK\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": false,\n  \"extraParam\": \"extra_value\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Add a country with non-existent blogId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"Блог не найден\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Not Found\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 9999,\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add a blog with an invalid data type for \"blogId\"",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"blogId должен быть int\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": \"one\",\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add a blog: with missing key blogId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"blogId не должен быть пустым\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add a blog with a high value blogId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 999999999999,\n  \"isFavorite\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check addition with invalid value isFavorite",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"isFavorite должен быть bool\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 1,\n  \"isFavorite\": \"yes\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check addition with empty value blogId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"blogId должен быть int\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": \"\",\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check addition with value 0 in blogId",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"blogId должен быть положительным числом\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"blogId\": 0,\n  \"isFavorite\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check addition with empty JSON",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Проверка текста сообщения\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.message).to.eql(\"blogId не должен быть пустым\");",
+											"});",
+											"",
+											"pm.test(\"Status code name has string\", function () {",
+											"pm.response.to.have.status(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "*/*"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/v1/user/blog",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"blog"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "200\\. Добавление/удаление статьи блога в/из избранн(ое/ого)\n\n400 1)Невалидный json в теле запроса\n\n400 2)blogId не должен быть пустым\n\n400 3)blogId должен быть int\n\n400 4)blogId должен быть положительным числом\n\n400 5)isFavorite не должен быть пустым\n\n400 6)isFavorite должен быть bool\n\n404 Блог не найден"
 		},
 		{
 			"name": "User Information",
